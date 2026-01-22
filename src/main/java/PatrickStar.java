@@ -11,7 +11,5 @@ public class PatrickStar {
         System.out.println("Hello from\n" + logo);
         System.out.println("Hi, I'm Patrick!");
         System.out.println("Is mayonnaise an instrument? Bye Bye!");
-
-
     }
 }
