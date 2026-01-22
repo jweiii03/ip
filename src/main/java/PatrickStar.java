@@ -13,8 +13,7 @@ public class PatrickStar {
         System.out.println("Hello from\n" + logo);
         System.out.println("Hi, I'm Patrick star.");
 
-        Task[] tasks = new Task[100];  // Create list of Tasks instead of String list
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();  // Use ArrayList for dynamic sizing
 
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
@@ -28,8 +27,8 @@ public class PatrickStar {
                 if (command.equals("list")) {
                     System.out.println("Uhh... here are your tasks: ");
                     // Display all tasks added by users
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + "." + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + "." + tasks.get(i));
                     }
                 } else if (command.equals("mark")) {
                     // Mark task as done
@@ -37,35 +36,47 @@ public class PatrickStar {
                         throw new DukeException("Uhhh... which task do I mark?");
                     }
                     int taskNum = Integer.parseInt(parts[1]) - 1;
-                    if (taskNum < 0 || taskNum >= taskCount) {
+                    if (taskNum < 0 || taskNum >= tasks.size()) {
                         throw new DukeException("Huh? That task doesn't exist...");
                     }
-                    tasks[taskNum].markAsDone();
+                    tasks.get(taskNum).markAsDone();
                     System.out.println("Alright, yeah. I've marked this task as done:");
-                    System.out.println(tasks[taskNum]);
+                    System.out.println(tasks.get(taskNum));
                 } else if (command.equals("unmark")) {
                     // Unmark task
                     if (parts.length < 2) {
                         throw new DukeException("Uhhh... which task do I unmark?");
                     }
                     int taskNum = Integer.parseInt(parts[1]) - 1;
-                    if (taskNum < 0 || taskNum >= taskCount) {
+                    if (taskNum < 0 || taskNum >= tasks.size()) {
                         throw new DukeException("Huh? That task doesn't exist...");
                     }
-                    tasks[taskNum].markAsNotDone();
+                    tasks.get(taskNum).markAsNotDone();
                     System.out.println("Alright I will unmark this task:");
-                    System.out.println(tasks[taskNum]);
+                    System.out.println(tasks.get(taskNum));
+                } else if (command.equals("delete")) {
+                    // Delete task
+                    if (parts.length < 2) {
+                        throw new DukeException("Uhhh... which task do you want me to delete?");
+                    }
+                    int taskNum = Integer.parseInt(parts[1]) - 1;
+                    if (taskNum < 0 || taskNum >= tasks.size()) {
+                        throw new DukeException("Huh? That task doesn't exist...");
+                    }
+                    Task deletedTask = tasks.remove(taskNum);  // Remove and return the task
+                    System.out.println("Alright yeah. I will remove this task:");
+                    System.out.println("  " + deletedTask);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 } else if (command.equals("todo")) {
                     // Create ToDo Task
                     if (parts.length < 2 || parts[1].trim().isEmpty()) {
                         throw new DukeException("Uhhh... What is the name of the ToDo task again?");
                     }
                     String description = parts[1];
-                    tasks[taskCount] = new ToDo(description);
+                    tasks.add(new ToDo(description));
                     System.out.println("Alright. I've added this task:");
-                    System.out.println(tasks[taskCount]);
-                    taskCount++;
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println(tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 } else if (command.equals("deadline")) {
                     // Create Deadline Task
                     if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -80,11 +91,10 @@ public class PatrickStar {
                     }
                     String description = deadlineParts[0];
                     String by = deadlineParts[1];
-                    tasks[taskCount] = new Deadline(description, by);
+                    tasks.add(new Deadline(description, by));
                     System.out.println("Alright. I've added this task:");
-                    System.out.println(tasks[taskCount]);
-                    taskCount++;
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println(tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 } else if (command.equals("event")) {
                     // Create Event task
                     if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -100,11 +110,10 @@ public class PatrickStar {
                     String description = eventParts[0];
                     String from = eventParts[1];
                     String to = eventParts[2];
-                    tasks[taskCount] = new Event(description, from, to);
+                    tasks.add(new Event(description, from, to));
                     System.out.println("Alright. I've added this task:");
-                    System.out.println(tasks[taskCount]);
-                    taskCount++;
-                    System.out.println("Uhhh... Now you have " + taskCount + " tasks in the list.");
+                    System.out.println(tasks.get(tasks.size() - 1));
+                    System.out.println("Uhhh... Now you have " + tasks.size() + " tasks in the list.");
                 } else {
                     throw new DukeException("Uhhh... I don't understand what that means. Is mayonnaise a command?");
                 }
