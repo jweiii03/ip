@@ -35,6 +35,12 @@ public class PatrickStar {
                 isDone[taskNum] = true;
                 System.out.println("Alright, yeah. I've marked this task as done:");
                 System.out.println("[X] " + tasks[taskNum]);
+            } else if (input.toLowerCase().startsWith("unmark ")) {
+                // Unmark task
+                int taskNum = Integer.parseInt(input.substring(7)) - 1;
+                isDone[taskNum] = false;
+                System.out.println("Huh? Alright I will unmark this task:");
+                System.out.println("[ ] " + tasks[taskNum]);
             } else {
                 // Add task
                 tasks[taskCount] = input;
