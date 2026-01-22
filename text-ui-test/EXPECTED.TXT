@@ -1,9 +1,38 @@
 Hello from
-######
-#     #  ###   #####  #####   #   ####  #    #    #
-#     # #   #    #    #    #     #    # #   #     #
-######  #   #    #    #    #  #  #      ####      #
-#       #####    #    #####   #  #      #  #      #
-#       #   #    #    #   #   #  #    # #   #
-#       #   #    #    #    #  #   ####  #    #    #
+######                                                 
+#     #  ###   #####  #####   #   ####  #    #    #    
+#     # #   #    #    #    #     #    # #   #     #    
+######  #   #    #    #    #  #  #      ####      #    
+#       #####    #    #####   #  #      #  #      #    
+#       #   #    #    #   #   #  #    # #   #          
+#       #   #    #    #    #  #   ####  #    #    #    
 
+Hi, I'm Patrick star.
+Alright. I've added this task:
+[T][ ] borrow book
+Now you have 1 tasks in the list.
+Uhh... here are your tasks: 
+1.[T][ ] borrow book
+Alright. I've added this task:
+[D][ ] return book (by: Sunday)
+Now you have 2 tasks in the list.
+Alright. I've added this task:
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Uhhh... Now you have 3 tasks in the list.
+Uhh... here are your tasks: 
+1.[T][ ] borrow book
+2.[D][ ] return book (by: Sunday)
+3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Alright, yeah. I've marked this task as done:
+[T][X] borrow book
+Uhh... here are your tasks: 
+1.[T][X] borrow book
+2.[D][ ] return book (by: Sunday)
+3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Huh? Alright I will unmark this task:
+[T][ ] borrow book
+Uhh... here are your tasks: 
+1.[T][ ] borrow book
+2.[D][ ] return book (by: Sunday)
+3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Uhhh... Is mayonnaise an instrument? Bye bye.
