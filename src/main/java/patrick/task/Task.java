@@ -17,16 +17,27 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the status icon of the task
+     * "X" indicates the task is completed, while a blank space indicates it is not completed
+     *
+     * @return A string representing the task's completion status
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Returns the description of the task
+     *
+     * @return The task description
+     */
     public String getDescription() {
         return description;
     }
 
     /**
-     * Marks the task as done.
+     * Marks the task as done
      */
     public void markAsDone() {
         isDone = true;

@@ -11,11 +11,11 @@ public class Event extends Task {
     private LocalDateTime to;
 
     /**
-     * Constructor: Creates a new Event task with the given description, start time, and end time.
+     * Constructor: Creates a new Event task with the given description, start time, and end time
      *
-     * @param description The description of the event.
-     * @param from The start date and time of the event.
-     * @param to The end date and time of the event.
+     * @param description The description of the event
+     * @param from The start date and time of the event
+     * @param to The end date and time of the event
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
@@ -24,9 +24,9 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the start date and time of the event.
+     * Returns the start date and time of the event
      *
-     * @return The start date and time.
+     * @return The start date and time
      */
     public LocalDateTime getFrom() {
         return from;

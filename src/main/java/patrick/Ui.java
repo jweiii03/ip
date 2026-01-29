@@ -4,7 +4,7 @@ import java.util.Scanner;
 import patrick.task.Task;
 
 /**
- *Handles interactions with the user
+ * Handles interactions with the user
  */
 
 public class Ui {
@@ -17,12 +17,12 @@ public class Ui {
     // Welcome message
     public void showWelcome() {
         String logo = "######                                                 \n"
-                + "#     #  ###   #####  #####   #   ####  #    #    #    \n"
-                + "#     # #   #    #    #    #     #    # #   #     #    \n"
-                + "######  #   #    #    #    #  #  #      ####      #    \n"
-                + "#       #####    #    #####   #  #      #  #      #    \n"
-                + "#       #   #    #    #   #   #  #    # #   #          \n"
-                + "#       #   #    #    #    #  #   ####  #    #    #    \n";
+                    + "#     #  ###   #####  #####   #   ####  #    #    #    \n"
+                    + "#     # #   #    #    #    #     #    # #   #     #    \n"
+                    + "######  #   #    #    #    #  #  #      ####      #    \n"
+                    + "#       #####    #    #####   #  #      #  #      #    \n"
+                    + "#       #   #    #    #   #   #  #    # #   #          \n"
+                    + "#       #   #    #    #    #  #   ####  #    #    #    \n";
 
         System.out.println("Hello from\n" + logo);
         System.out.println("Hi, I'm Patrick star.");

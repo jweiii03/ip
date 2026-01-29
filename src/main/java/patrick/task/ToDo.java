@@ -1,8 +1,7 @@
 package patrick.task;
 
-
 /**
- * Represents a todo task without any date/time attached.
+ * Represents a todo task without any date/time attached
  */
 public class ToDo extends Task {
     /**
