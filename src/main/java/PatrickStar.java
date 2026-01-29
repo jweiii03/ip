@@ -1,19 +1,103 @@
 import java.util.*;
+import java.io.*;
+import java.nio.file.*;
 
 public class PatrickStar {
+    private static final String FILE_PATH = "./data/duke.txt";
+
+    // Save tasks to file
+    private static void saveTasks(ArrayList<Task> tasks) {
+        try {
+            // Create directory if it doesn't exist
+            Path path = Paths.get(FILE_PATH);
+            Files.createDirectories(path.getParent());
+
+            FileWriter writer = new FileWriter(FILE_PATH);
+            for (Task task : tasks) {
+                writer.write(task.toFileFormat() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Uhhh... I couldn't save the tasks. Sorry!");
+        }
+    }
+
+    // Load tasks from file
+    private static ArrayList<Task> loadTasks() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        File file = new File(FILE_PATH);
+
+        // If file doesn't exist, return empty list
+        if (!file.exists()) {
+            return tasks;
+        }
+
+        try {
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                try {
+                    Task task = parseTaskFromFile(line);
+                    if (task != null) {
+                        tasks.add(task);
+                    }
+                } catch (Exception e) {
+                    // Skip corrupted lines
+                    System.out.println("Skipping corrupted line: " + line);
+                }
+            }
+            fileScanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Uhhh... I couldn't find the file to load tasks.");
+        }
+
+        return tasks;
+    }
+
+    // Parse a task from file format
+    private static Task parseTaskFromFile(String line) {
+        String[] parts = line.split(" \\| ");
+        if (parts.length < 3) {
+            return null; // Invalid format
+        }
+
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        Task task = null;
+
+        if (type.equals("T")) {
+            task = new ToDo(description);
+        } else if (type.equals("D") && parts.length >= 4) {
+            String by = parts[3];
+            task = new Deadline(description, by);
+        } else if (type.equals("E") && parts.length >= 5) {
+            String from = parts[3];
+            String to = parts[4];
+            task = new Event(description, from, to);
+        }
+
+        if (task != null && isDone) {
+            task.markAsDone();
+        }
+
+        return task;
+    }
+
     public static void main(String[] args) {
         String logo = "######                                                 \n"
-                    + "#     #  ###   #####  #####   #   ####  #    #    #    \n"
-                    + "#     # #   #    #    #    #     #    # #   #     #    \n"
-                    + "######  #   #    #    #    #  #  #      ####      #    \n"
-                    + "#       #####    #    #####   #  #      #  #      #    \n"
-                    + "#       #   #    #    #   #   #  #    # #   #          \n"
-                    + "#       #   #    #    #    #  #   ####  #    #    #    \n";
+                + "#     #  ###   #####  #####   #   ####  #    #    #    \n"
+                + "#     # #   #    #    #    #     #    # #   #     #    \n"
+                + "######  #   #    #    #    #  #  #      ####      #    \n"
+                + "#       #####    #    #####   #  #      #  #      #    \n"
+                + "#       #   #    #    #   #   #  #    # #   #          \n"
+                + "#       #   #    #    #    #  #   ####  #    #    #    \n";
 
         System.out.println("Hello from\n" + logo);
         System.out.println("Hi, I'm Patrick star.");
 
-        ArrayList<Task> tasks = new ArrayList<>();  // Use ArrayList for dynamic sizing
+        ArrayList<Task> tasks = loadTasks();  // Load tasks from file at startup
 
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
@@ -42,6 +126,7 @@ public class PatrickStar {
                     tasks.get(taskNum).markAsDone();
                     System.out.println("Alright, yeah. I've marked this task as done:");
                     System.out.println(tasks.get(taskNum));
+                    saveTasks(tasks);  // Save after modification
                 } else if (command.equals("unmark")) {
                     // Unmark task
                     if (parts.length < 2) {
@@ -54,6 +139,7 @@ public class PatrickStar {
                     tasks.get(taskNum).markAsNotDone();
                     System.out.println("Alright I will unmark this task:");
                     System.out.println(tasks.get(taskNum));
+                    saveTasks(tasks);  // Save after modification
                 } else if (command.equals("delete")) {
                     // Delete task
                     if (parts.length < 2) {
@@ -67,6 +153,7 @@ public class PatrickStar {
                     System.out.println("Alright yeah. I will remove this task:");
                     System.out.println("  " + deletedTask);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    saveTasks(tasks);  // Save after modification
                 } else if (command.equals("todo")) {
                     // Create ToDo Task
                     if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -77,6 +164,7 @@ public class PatrickStar {
                     System.out.println("Alright. I've added this task:");
                     System.out.println(tasks.get(tasks.size() - 1));
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    saveTasks(tasks);  // Save after modification
                 } else if (command.equals("deadline")) {
                     // Create Deadline Task
                     if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -95,6 +183,7 @@ public class PatrickStar {
                     System.out.println("Alright. I've added this task:");
                     System.out.println(tasks.get(tasks.size() - 1));
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    saveTasks(tasks);  // Save after modification
                 } else if (command.equals("event")) {
                     // Create Event task
                     if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -114,6 +203,7 @@ public class PatrickStar {
                     System.out.println("Alright. I've added this task:");
                     System.out.println(tasks.get(tasks.size() - 1));
                     System.out.println("Uhhh... Now you have " + tasks.size() + " tasks in the list.");
+                    saveTasks(tasks);  // Save after modification
                 } else {
                     throw new DukeException("Uhhh... I don't understand what that means. Is mayonnaise a command?");
                 }
