@@ -1,3 +1,5 @@
+package patrick;
+
 import java.util.Scanner;
 
 // Handles interactions with the user
