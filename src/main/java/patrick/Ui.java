@@ -4,7 +4,7 @@ import java.util.Scanner;
 import patrick.task.*;
 
 /**
- * Handles interactions with the user
+ *Handles interactions with the user
  */
 
 public class Ui {
