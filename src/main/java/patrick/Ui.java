@@ -17,12 +17,12 @@ public class Ui {
     // Welcome message
     public void showWelcome() {
         String logo = "######                                                 \n"
-                    + "#     #  ###   #####  #####   #   ####  #    #    #    \n"
-                    + "#     # #   #    #    #    #     #    # #   #     #    \n"
-                    + "######  #   #    #    #    #  #  #      ####      #    \n"
-                    + "#       #####    #    #####   #  #      #  #      #    \n"
-                    + "#       #   #    #    #   #   #  #    # #   #          \n"
-                    + "#       #   #    #    #    #  #   ####  #    #    #    \n";
+                + "#     #  ###   #####  #####   #   ####  #    #    #    \n"
+                + "#     # #   #    #    #    #     #    # #   #     #    \n"
+                + "######  #   #    #    #    #  #  #      ####      #    \n"
+                + "#       #####    #    #####   #  #      #  #      #    \n"
+                + "#       #   #    #    #   #   #  #    # #   #          \n"
+                + "#       #   #    #    #    #  #   ####  #    #    #    \n";
 
         System.out.println("Hello from\n" + logo);
         System.out.println("Hi, I'm Patrick star.");
@@ -64,6 +64,17 @@ public class Ui {
      */
     public void showTaskList(java.util.ArrayList<Task> tasks) {
         System.out.println("Uhh... here are your tasks: ");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
+        }
+    }
+
+    /**
+     * Shows the matching tasks from a search.
+     * @param tasks The list of matching tasks to display
+     */
+    public void showMatchingTasks(java.util.ArrayList<Task> tasks) {
+        System.out.println("Uhhhhhhhhhhhh, here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i));
         }

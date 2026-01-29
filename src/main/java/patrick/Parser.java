@@ -61,6 +61,10 @@ public class Parser {
                 handleEvent(parts, tasks, ui, storage);
                 break;
 
+            case "find":
+                handleFind(parts, tasks, ui);
+                break;
+
             default:
                 throw new DukeException("Uhhh... I don't understand what that means. Is mayonnaise a command?");
             }
@@ -219,5 +223,22 @@ public class Parser {
         } catch (DateTimeParseException e) {
             throw new DukeException("Uhhh... I need dates in yyyy-MM-dd HHmm format (like 2019-10-15 1800)");
         }
+    }
+
+    /**
+     * Handles the find command to search for tasks containing a given keyword
+     *
+     * @param parts The split command parts, where the second element contains the search keyword
+     * @param tasks The task list to search within
+     * @param ui The UI handler used to display matching tasks
+     * @throws DukeException If the search keyword is missing or empty
+     */
+    private static void handleFind(String[] parts, TaskList tasks, Ui ui) throws DukeException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new DukeException("Uhhh... what should I search for?");
+        }
+        String keyword = parts[1].trim();
+        java.util.ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
+        ui.showMatchingTasks(matchingTasks);
     }
 }
