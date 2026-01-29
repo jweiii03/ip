@@ -1,6 +1,10 @@
 import java.util.*;
 import java.io.*;
 import java.nio.file.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class PatrickStar {
     private static final String FILE_PATH = "./data/duke.txt";
@@ -67,15 +71,20 @@ public class PatrickStar {
 
         Task task = null;
 
-        if (type.equals("T")) {
-            task = new ToDo(description);
-        } else if (type.equals("D") && parts.length >= 4) {
-            String by = parts[3];
-            task = new Deadline(description, by);
-        } else if (type.equals("E") && parts.length >= 5) {
-            String from = parts[3];
-            String to = parts[4];
-            task = new Event(description, from, to);
+        try {
+            if (type.equals("T")) {
+                task = new ToDo(description);
+            } else if (type.equals("D") && parts.length >= 4) {
+                LocalDate by = LocalDate.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE);
+                task = new Deadline(description, by);
+            } else if (type.equals("E") && parts.length >= 5) {
+                LocalDateTime from = LocalDateTime.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                LocalDateTime to = LocalDateTime.parse(parts[4], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                task = new Event(description, from, to);
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Error parsing date from file: " + line);
+            return null;
         }
 
         if (task != null && isDone) {
@@ -178,12 +187,18 @@ public class PatrickStar {
                         throw new DukeException("Uhhh... the deadline description can't be empty Yeah");
                     }
                     String description = deadlineParts[0];
-                    String by = deadlineParts[1];
-                    tasks.add(new Deadline(description, by));
-                    System.out.println("Alright. I've added this task:");
-                    System.out.println(tasks.get(tasks.size() - 1));
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    saveTasks(tasks);  // Save after modification
+                    String byString = deadlineParts[1].trim();
+
+                    try {
+                        LocalDate by = LocalDate.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        tasks.add(new Deadline(description, by));
+                        System.out.println("Alright. I've added this task:");
+                        System.out.println(tasks.get(tasks.size() - 1));
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        saveTasks(tasks);  // Save after modification
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("Uhhh... I need the date in yyyy-MM-dd format (like 2019-10-15)");
+                    }
                 } else if (command.equals("event")) {
                     // Create Event task
                     if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -197,18 +212,28 @@ public class PatrickStar {
                         throw new DukeException("Uhhh... the event description can't be empty Yeah");
                     }
                     String description = eventParts[0];
-                    String from = eventParts[1];
-                    String to = eventParts[2];
-                    tasks.add(new Event(description, from, to));
-                    System.out.println("Alright. I've added this task:");
-                    System.out.println(tasks.get(tasks.size() - 1));
-                    System.out.println("Uhhh... Now you have " + tasks.size() + " tasks in the list.");
-                    saveTasks(tasks);  // Save after modification
+                    String fromString = eventParts[1].trim();
+                    String toString = eventParts[2].trim();
+
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                        LocalDateTime from = LocalDateTime.parse(fromString, formatter);
+                        LocalDateTime to = LocalDateTime.parse(toString, formatter);
+                        tasks.add(new Event(description, from, to));
+                        System.out.println("Alright. I've added this task:");
+                        System.out.println(tasks.get(tasks.size() - 1));
+                        System.out.println("Uhhh... Now you have " + tasks.size() + " tasks in the list.");
+                        saveTasks(tasks);  // Save after modification
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("Uhhh... I need dates in yyyy-MM-dd HHmm format (like 2019-10-15 1800)");
+                    }
                 } else {
                     throw new DukeException("Uhhh... I don't understand what that means. Is mayonnaise a command?");
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+            } catch (DateTimeParseException e) {
+                System.out.println("Uhhh... that date format doesn't look right...");
             } catch (NumberFormatException e) {
                 System.out.println("Uhhh... that doesn't look like a number to me...");
             } catch (ArrayIndexOutOfBoundsException e) {
