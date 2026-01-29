@@ -11,15 +11,22 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    // Mark task as completed
     public void markAsDone() {
         isDone = true;
     }
 
+    // Unmark task
     public void markAsNotDone() {
         isDone = false;
     }
 
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
+    }
+
+    // File format for task
+    public String toFileFormat() {
+        return (isDone ? "1" : "0") + " | " + description;
     }
 }
