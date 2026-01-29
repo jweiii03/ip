@@ -24,39 +24,43 @@ public class Parser {
 
         try {
             switch (command) {
-                case "bye":
-                    return true;
+            case "bye":
+                return true;
 
-                case "list":
-                    ui.showTaskList(tasks.getTasks());
-                    break;
+            case "list":
+                ui.showTaskList(tasks.getTasks());
+                break;
 
-                case "mark":
-                    handleMark(parts, tasks, ui, storage);
-                    break;
+            case "mark":
+                handleMark(parts, tasks, ui, storage);
+                break;
 
-                case "unmark":
-                    handleUnmark(parts, tasks, ui, storage);
-                    break;
+            case "unmark":
+                handleUnmark(parts, tasks, ui, storage);
+                break;
 
-                case "delete":
-                    handleDelete(parts, tasks, ui, storage);
-                    break;
+            case "delete":
+                handleDelete(parts, tasks, ui, storage);
+                break;
 
-                case "todo":
-                    handleTodo(parts, tasks, ui, storage);
-                    break;
+            case "todo":
+                handleTodo(parts, tasks, ui, storage);
+                break;
 
-                case "deadline":
-                    handleDeadline(parts, tasks, ui, storage);
-                    break;
+            case "deadline":
+                handleDeadline(parts, tasks, ui, storage);
+                break;
 
-                case "event":
-                    handleEvent(parts, tasks, ui, storage);
-                    break;
+            case "event":
+                handleEvent(parts, tasks, ui, storage);
+                break;
 
-                default:
-                    throw new DukeException("Uhhh... I don't understand what that means. Is mayonnaise a command?");
+            case "find":
+                handleFind(parts, tasks, ui);
+                break;
+
+            default:
+                throw new DukeException("Uhhh... I don't understand what that means. Is mayonnaise a command?");
             }
         } catch (NumberFormatException e) {
             throw new DukeException("Uhhh... that doesn't look like a number to me...");
@@ -159,5 +163,14 @@ public class Parser {
         } catch (DateTimeParseException e) {
             throw new DukeException("Uhhh... I need dates in yyyy-MM-dd HHmm format (like 2019-10-15 1800)");
         }
+    }
+
+    private static void handleFind(String[] parts, TaskList tasks, Ui ui) throws DukeException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new DukeException("Uhhh... what should I search for?");
+        }
+        String keyword = parts[1].trim();
+        java.util.ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
+        ui.showMatchingTasks(matchingTasks);
     }
 }
