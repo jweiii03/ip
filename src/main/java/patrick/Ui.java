@@ -99,7 +99,7 @@ public class Ui {
     }
 
     /**
-     * Shows a task that was added.
+     * Shows a task that was added
      * @param task The task that was added
      * @param totalTasks The total number of tasks
      */
@@ -110,7 +110,7 @@ public class Ui {
     }
 
     /**
-     * Shows a task that was added (with "Uhhh..." prefix for events).
+     * Shows a task that was added (with "Uhhh..." prefix for events)
      * @param task The task that was added
      * @param totalTasks The total number of tasks
      */
@@ -121,7 +121,7 @@ public class Ui {
     }
 
     /**
-     * Closes the scanner.
+     * Closes the scanner
      */
     public void close() {
         scanner.close();

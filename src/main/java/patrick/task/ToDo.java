@@ -19,11 +19,6 @@ public class ToDo extends Task {
         return "[T]" + super.toString();
     }
 
-    /**
-     * Returns the todo task in file format for saving
-     *
-     * @return A string representation for file storage
-     */
     @Override
     public String toFileFormat() {
         return "T | " + super.toFileFormat();

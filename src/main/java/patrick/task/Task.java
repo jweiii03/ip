@@ -35,6 +35,11 @@ public class Task {
         isDone = false;
     }
 
+    /**
+     * Returns a string representation of the task.
+     *
+     * @return A string in the format "[status] description"
+     */
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }

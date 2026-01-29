@@ -35,11 +35,6 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + dueDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 
-    /**
-     * Returns the deadline task in file format for saving
-     *
-     * @return A string representation for file storage
-     */
     @Override
     public String toFileFormat() {
         return "D | " + super.toFileFormat() + " | " + dueDate.format(DateTimeFormatter.ISO_LOCAL_DATE);

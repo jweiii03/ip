@@ -70,6 +70,15 @@ public class Parser {
         return false;
     }
 
+    /**
+     * Handles the mark command to mark a task as done.
+     *
+     * @param parts The split command parts.
+     * @param tasks The task list.
+     * @param ui The UI handler.
+     * @param storage The storage handler.
+     * @throws DukeException If task number is invalid or missing.
+     */
     private static void handleMark(String[] parts, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (parts.length < 2) {
             throw new DukeException("Uhhh... which task do I mark?");
@@ -80,6 +89,15 @@ public class Parser {
         storage.save(tasks.getTasks());
     }
 
+    /**
+     * Handles the unmark command to mark a task as not done.
+     *
+     * @param parts The split command parts.
+     * @param tasks The task list.
+     * @param ui The UI handler.
+     * @param storage The storage handler.
+     * @throws DukeException If task number is invalid or missing.
+     */
     private static void handleUnmark(String[] parts, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (parts.length < 2) {
             throw new DukeException("Uhhh... which task do I unmark?");
@@ -90,6 +108,15 @@ public class Parser {
         storage.save(tasks.getTasks());
     }
 
+    /**
+     * Handles the delete command to remove a task.
+     *
+     * @param parts The split command parts.
+     * @param tasks The task list.
+     * @param ui The UI handler.
+     * @param storage The storage handler.
+     * @throws DukeException If task number is invalid or missing.
+     */
     private static void handleDelete(String[] parts, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (parts.length < 2) {
             throw new DukeException("Uhhh... which task do you want me to delete?");
@@ -100,6 +127,15 @@ public class Parser {
         storage.save(tasks.getTasks());
     }
 
+    /**
+     * Handles the todo command to create a new todo task.
+     *
+     * @param parts The split command parts.
+     * @param tasks The task list.
+     * @param ui The UI handler.
+     * @param storage The storage handler.
+     * @throws DukeException If description is missing.
+     */
     private static void handleTodo(String[] parts, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new DukeException("Uhhh... What is the name of the ToDo task again?");
@@ -111,6 +147,15 @@ public class Parser {
         storage.save(tasks.getTasks());
     }
 
+    /**
+     * Handles the deadline command to create a new deadline task.
+     *
+     * @param parts The split command parts.
+     * @param tasks The task list.
+     * @param ui The UI handler.
+     * @param storage The storage handler.
+     * @throws DukeException If description or date is missing or invalid.
+     */
     private static void handleDeadline(String[] parts, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new DukeException("Uhhh... I need a description for the deadline...");
@@ -136,6 +181,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the event command to create a new event task.
+     *
+     * @param parts The split command parts.
+     * @param tasks The task list.
+     * @param ui The UI handler.
+     * @param storage The storage handler.
+     * @throws DukeException If description or times are missing or invalid.
+     */
     private static void handleEvent(String[] parts, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new DukeException("Uhhh... I need a description for the event Yeah");
