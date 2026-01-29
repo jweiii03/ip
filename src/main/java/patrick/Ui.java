@@ -1,7 +1,7 @@
 package patrick;
 
 import java.util.Scanner;
-import patrick.task.*;
+import patrick.task.Task;
 
 // Handles interactions with the user
 

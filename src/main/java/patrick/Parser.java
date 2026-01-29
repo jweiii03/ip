@@ -4,7 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import patrick.task.*;
+import patrick.task.Deadline;
+import patrick.task.Event;
+import patrick.task.Task;
+import patrick.task.ToDo;
 
 // Parses user input and executes commands.
 public class Parser {
@@ -24,39 +27,39 @@ public class Parser {
 
         try {
             switch (command) {
-                case "bye":
-                    return true;
+            case "bye":
+                return true;
 
-                case "list":
-                    ui.showTaskList(tasks.getTasks());
-                    break;
+            case "list":
+                ui.showTaskList(tasks.getTasks());
+                break;
 
-                case "mark":
-                    handleMark(parts, tasks, ui, storage);
-                    break;
+            case "mark":
+                handleMark(parts, tasks, ui, storage);
+                break;
 
-                case "unmark":
-                    handleUnmark(parts, tasks, ui, storage);
-                    break;
+            case "unmark":
+                handleUnmark(parts, tasks, ui, storage);
+                break;
 
-                case "delete":
-                    handleDelete(parts, tasks, ui, storage);
-                    break;
+            case "delete":
+                handleDelete(parts, tasks, ui, storage);
+                break;
 
-                case "todo":
-                    handleTodo(parts, tasks, ui, storage);
-                    break;
+            case "todo":
+                handleTodo(parts, tasks, ui, storage);
+                break;
 
-                case "deadline":
-                    handleDeadline(parts, tasks, ui, storage);
-                    break;
+            case "deadline":
+                handleDeadline(parts, tasks, ui, storage);
+                break;
 
-                case "event":
-                    handleEvent(parts, tasks, ui, storage);
-                    break;
+            case "event":
+                handleEvent(parts, tasks, ui, storage);
+                break;
 
-                default:
-                    throw new DukeException("Uhhh... I don't understand what that means. Is mayonnaise a command?");
+            default:
+                throw new DukeException("Uhhh... I don't understand what that means. Is mayonnaise a command?");
             }
         } catch (NumberFormatException e) {
             throw new DukeException("Uhhh... that doesn't look like a number to me...");
