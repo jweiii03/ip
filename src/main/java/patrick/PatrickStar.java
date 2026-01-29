@@ -1,13 +1,18 @@
 package patrick;
 
-import patrick.task.*;
-
-// PatrickStar chatbot that manages tasks.
+/**
+ * PatrickStar chatbot that manages tasks
+ */
 public class PatrickStar {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor: Creates a new PatrickStar instance and initializes the UI, storage, and task list
+     *
+     * @param filePath The file path to store and load tasks from
+     */
     public PatrickStar(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -19,6 +24,9 @@ public class PatrickStar {
         }
     }
 
+    /**
+     * Runs the main loop of the chatbot, processing user commands until user exits
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

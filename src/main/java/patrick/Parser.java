@@ -6,7 +6,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import patrick.task.*;
 
-// Parses user input and executes commands.
+/**
+ * Parses user input and executes commands.
+ */
+
 public class Parser {
 
     /**

@@ -3,8 +3,9 @@ package patrick;
 import java.util.ArrayList;
 import patrick.task.*;
 
-// Contains the task list and operations to add/delete tasks in the list.
-
+/**
+ * Contains the task list and operations to add/delete tasks in the list
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 

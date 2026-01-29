@@ -11,7 +11,9 @@ import java.time.format.DateTimeParseException;
 import patrick.task.*;
 
 
-// Handles loading tasks from file and saving tasks to file.
+/**
+ * Handles loading tasks from file and saving tasks to file
+ */
 public class Storage {
     private String filePath;
 
