@@ -1,7 +1,7 @@
 package patrick;
 
 import java.util.ArrayList;
-import patrick.task.*;
+import patrick.task.Task;
 
 /**
  * Contains the task list and operations to add/delete tasks in the list
