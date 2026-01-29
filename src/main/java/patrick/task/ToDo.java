@@ -1,4 +1,4 @@
-package patrick;
+package patrick.task;
 
 public class ToDo extends Task {
     // Child class of Task

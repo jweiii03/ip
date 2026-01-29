@@ -1,5 +1,7 @@
 package patrick;
 
+import patrick.task.*;
+
 // PatrickStar chatbot that manages tasks.
 public class PatrickStar {
     private Storage storage;
