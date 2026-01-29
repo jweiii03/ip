@@ -27,8 +27,9 @@ test {
     }
 }
 
+
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("patrick.PatrickStar")
 }
 
 shadowJar {
