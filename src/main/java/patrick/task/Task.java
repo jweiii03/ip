@@ -1,9 +1,17 @@
 package patrick.task;
 
+/**
+ * Represents a task with a description and completion status.
+ */
+
 public class Task {
     private String description;
     private boolean isDone;
 
+    /**
+     * Creates a new Task with the given description
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -13,12 +21,16 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    // Mark task as completed
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         isDone = true;
     }
 
-    // Unmark task
+    /**
+     * Marks the task as not done.
+     */
     public void markAsNotDone() {
         isDone = false;
     }
@@ -27,7 +39,11 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
-    // File format for task
+    /**
+     * Returns the task in file format for saving to disk.
+     *
+     * @return A string representation of the task for file storage.
+     */
     public String toFileFormat() {
         return (isDone ? "1" : "0") + " | " + description;
     }
