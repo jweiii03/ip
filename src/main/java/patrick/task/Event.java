@@ -49,6 +49,8 @@ public class Event extends Task {
 
     @Override
     public String toFileFormat() {
-        return "E | " + super.toFileFormat() + " | " + from.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + " | " + to.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        return "E | " + super.toFileFormat() + " | "
+                + from.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                + " | " + to.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     }
 }

@@ -1,11 +1,13 @@
 package patrick;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import patrick.task.ToDo;
-import patrick.task.Task;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import patrick.task.Task;
+import patrick.task.ToDo;
 
 public class TaskListTest {
     private TaskList taskList;

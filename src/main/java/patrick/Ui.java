@@ -1,12 +1,12 @@
 package patrick;
 
 import java.util.Scanner;
+
 import patrick.task.Task;
 
 /**
  * Handles interactions with the user
  */
-
 public class Ui {
     private Scanner scanner;
 
@@ -14,7 +14,9 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-    // Welcome message
+    /**
+     * Welcome message
+     */
     public void showWelcome() {
         String logo = "######                                                 \n"
                     + "#     #  ###   #####  #####   #   ####  #    #    #    \n"

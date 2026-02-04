@@ -1,7 +1,9 @@
 package patrick;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
 import patrick.task.ToDo;
 
 public class ToDoTest {
