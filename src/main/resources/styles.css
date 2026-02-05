@@ -1,0 +1,70 @@
+/* Main Window Background */
+.root {
+    -fx-background-image: url('/images/BikiniBottom.jpg');
+}
+
+/* Make background transparent so image shows through */
+.anchor-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Dialog Container */
+#dialogContainer {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+}
+
+/* User Dialog Box - Pink */
+.user-dialog {
+    -fx-background-color: #FFB6C1;
+    -fx-background-radius: 20;
+    -fx-padding: 15 20 15 20;
+}
+
+.user-dialog .label {
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+    -fx-font-size: 16px;
+}
+
+/* Patrick Dialog Box - Yellow */
+.patrick-dialog {
+    -fx-background-color: #FFD700;
+    -fx-background-radius: 20;
+    -fx-padding: 15 20 15 20;
+}
+
+.patrick-dialog .label {
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+    -fx-font-size: 16px;
+}
+
+/* Text Input Box */
+#userInput {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #FFD700;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-padding: 8;
+    -fx-font-size: 14px;
+}
+
+/* Send Button */
+#sendButton {
+    -fx-background-color: #FF69B4;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}

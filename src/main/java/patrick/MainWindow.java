@@ -1,5 +1,7 @@
 package patrick;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,9 +9,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
- * Controller for the main GUI.
+ * Controller for the main GUI
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -54,5 +57,17 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getPatrickDialog(response, patrickImage)
         );
         userInput.clear();
+
+        // Close the window if user typed "bye"
+        if (input.trim().equalsIgnoreCase("bye")) {
+            // Disable input after bye command
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
+
+            // Wait 1 seconds before closing so user can see goodbye message
+            PauseTransition delay = new PauseTransition(Duration.seconds(1));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
+        }
     }
 }
