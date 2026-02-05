@@ -1,0 +1,60 @@
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278357615}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278357623}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":1},"timestamp":1770278357623}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.deleteTask","message":"deleteTask","data":{"index":0,"sizeBefore":2},"timestamp":1770278357624}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278357626}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278357628}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.markTask","message":"markTask","data":{"index":0},"timestamp":1770278357628}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278357629}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.markTask","message":"markTask","data":{"index":0},"timestamp":1770278357629}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.unmarkTask","message":"unmarkTask","data":{"index":0},"timestamp":1770278357629}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H3","location":"ToDo.toFileFormat","message":"toFileFormat","data":{"value":"T | 0 | buy groceries"},"timestamp":1770278357635}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H3","location":"ToDo.toFileFormat","message":"toFileFormat","data":{"value":"T | 1 | buy groceries"},"timestamp":1770278357638}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278437419}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278437427}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":1},"timestamp":1770278437427}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.deleteTask","message":"deleteTask","data":{"index":0,"sizeBefore":2},"timestamp":1770278437427}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278437431}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278437433}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.markTask","message":"markTask","data":{"index":0},"timestamp":1770278437433}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278437434}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.markTask","message":"markTask","data":{"index":0},"timestamp":1770278437434}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.unmarkTask","message":"unmarkTask","data":{"index":0},"timestamp":1770278437434}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H3","location":"ToDo.toFileFormat","message":"toFileFormat","data":{"value":"T | 0 | buy groceries"},"timestamp":1770278437440}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H3","location":"ToDo.toFileFormat","message":"toFileFormat","data":{"value":"T | 1 | buy groceries"},"timestamp":1770278437443}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278545006}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278545016}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":1},"timestamp":1770278545016}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.deleteTask","message":"deleteTask","data":{"index":0,"sizeBefore":2},"timestamp":1770278545017}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278545020}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278545022}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.markTask","message":"markTask","data":{"index":0},"timestamp":1770278545022}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278545023}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.markTask","message":"markTask","data":{"index":0},"timestamp":1770278545023}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.unmarkTask","message":"unmarkTask","data":{"index":0},"timestamp":1770278545024}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H3","location":"ToDo.toFileFormat","message":"toFileFormat","data":{"value":"T | 0 | buy groceries"},"timestamp":1770278545029}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H3","location":"ToDo.toFileFormat","message":"toFileFormat","data":{"value":"T | 1 | buy groceries"},"timestamp":1770278545032}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278607479}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278607492}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":1},"timestamp":1770278607493}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.deleteTask","message":"deleteTask","data":{"index":0,"sizeBefore":2},"timestamp":1770278607493}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278607497}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278607501}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.markTask","message":"markTask","data":{"index":0},"timestamp":1770278607501}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278607502}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.markTask","message":"markTask","data":{"index":0},"timestamp":1770278607502}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.unmarkTask","message":"unmarkTask","data":{"index":0},"timestamp":1770278607502}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H3","location":"ToDo.toFileFormat","message":"toFileFormat","data":{"value":"T | 0 | buy groceries"},"timestamp":1770278607511}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H3","location":"ToDo.toFileFormat","message":"toFileFormat","data":{"value":"T | 1 | buy groceries"},"timestamp":1770278607516}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278709699}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278709707}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":1},"timestamp":1770278709707}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.deleteTask","message":"deleteTask","data":{"index":0,"sizeBefore":2},"timestamp":1770278709707}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278709712}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278709714}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.markTask","message":"markTask","data":{"index":0},"timestamp":1770278709714}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.addTask","message":"addTask","data":{"sizeBefore":0},"timestamp":1770278709715}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.markTask","message":"markTask","data":{"index":0},"timestamp":1770278709715}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H2","location":"TaskList.unmarkTask","message":"unmarkTask","data":{"index":0},"timestamp":1770278709715}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H3","location":"ToDo.toFileFormat","message":"toFileFormat","data":{"value":"T | 0 | buy groceries"},"timestamp":1770278709721}
+{"sessionId":"debug-session","runId":"pre-fix","hypothesisId":"H3","location":"ToDo.toFileFormat","message":"toFileFormat","data":{"value":"T | 1 | buy groceries"},"timestamp":1770278709724}

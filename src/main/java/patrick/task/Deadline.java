@@ -4,21 +4,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a task with a deadline
+ * Represents a deadline task with a specific due date
  */
 public class Deadline extends Task {
-    // Child class of Task parent class
-    private LocalDate dueDate;
+    private LocalDate by;
 
     /**
      * Constructor: Creates a new Deadline task with the given description and due date
      *
      * @param description The description of the deadline task
-     * @param dueDate The date by which the task should be completed
+     * @param by The due date of the task
      */
-    public Deadline(String description, LocalDate dueDate) {
+    public Deadline(String description, LocalDate by) {
         super(description);
-        this.dueDate = dueDate;
+        this.by = by;
     }
 
     /**
@@ -26,17 +25,17 @@ public class Deadline extends Task {
      *
      * @return The due date
      */
-    public LocalDate getDueDate() {
-        return dueDate;
+    public LocalDate getBy() {
+        return by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + dueDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 
     @Override
     public String toFileFormat() {
-        return "D | " + super.toFileFormat() + " | " + dueDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        return "D | " + super.toFileFormat() + " | " + by.toString();
     }
 }
