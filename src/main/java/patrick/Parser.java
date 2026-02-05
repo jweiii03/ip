@@ -17,6 +17,60 @@ import patrick.task.ToDo;
 public class Parser {
 
     /**
+     * Parses and executes a user command for GUI (returns response string).
+     *
+     * @param input The user input
+     * @param tasks The task list
+     * @param ui The UI handler
+     * @param storage The storage handler
+     * @return The response string to display in GUI
+     */
+    public static String parseCommandForGui(String input, TaskList tasks, Ui ui, Storage storage) {
+        try {
+            String[] parts = input.split(" ", 2);
+            String command = parts[0].toLowerCase();
+
+            switch (command) {
+            case "bye":
+                return ui.formatGoodbye();
+
+            case "list":
+                return ui.formatTaskList(tasks.getTasks());
+
+            case "mark":
+                return handleMarkForGui(parts, tasks, ui, storage);
+
+            case "unmark":
+                return handleUnmarkForGui(parts, tasks, ui, storage);
+
+            case "delete":
+                return handleDeleteForGui(parts, tasks, ui, storage);
+
+            case "todo":
+                return handleTodoForGui(parts, tasks, ui, storage);
+
+            case "deadline":
+                return handleDeadlineForGui(parts, tasks, ui, storage);
+
+            case "event":
+                return handleEventForGui(parts, tasks, ui, storage);
+
+            case "find":
+                return handleFindForGui(parts, tasks, ui);
+
+            default:
+                throw new DukeException("Uhhh... I don't understand what that means. Is mayonnaise a command?");
+            }
+        } catch (DukeException e) {
+            return e.getMessage();
+        } catch (NumberFormatException e) {
+            return "Uhhh... that doesn't look like a number to me...";
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return "I think something's missing in your command";
+        }
+    }
+
+    /**
      * Parses and executes a user command
      * @param input The user input
      * @param tasks The task list
@@ -241,5 +295,137 @@ public class Parser {
         String keyword = parts[1].trim();
         java.util.ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
         ui.showMatchingTasks(matchingTasks);
+    }
+
+    // ========== GUI-specific methods that return strings ==========
+
+    /**
+     * Handles the mark command for GUI and returns response string.
+     */
+    private static String handleMarkForGui(String[] parts, TaskList tasks, Ui ui, Storage storage)
+            throws DukeException {
+        if (parts.length < 2) {
+            throw new DukeException("Uhhh... which task do I mark?");
+        }
+        int taskNum = Integer.parseInt(parts[1]) - 1;
+        tasks.markTask(taskNum);
+        storage.save(tasks.getTasks());
+        return ui.formatTaskMarked(tasks.getTask(taskNum));
+    }
+
+    /**
+     * Handles the unmark command for GUI and returns response string.
+     */
+    private static String handleUnmarkForGui(String[] parts, TaskList tasks, Ui ui, Storage storage)
+            throws DukeException {
+        if (parts.length < 2) {
+            throw new DukeException("Uhhh... which task do I unmark?");
+        }
+        int taskNum = Integer.parseInt(parts[1]) - 1;
+        tasks.unmarkTask(taskNum);
+        storage.save(tasks.getTasks());
+        return ui.formatTaskUnmarked(tasks.getTask(taskNum));
+    }
+
+    /**
+     * Handles the delete command for GUI and returns response string.
+     */
+    private static String handleDeleteForGui(String[] parts, TaskList tasks, Ui ui, Storage storage)
+            throws DukeException {
+        if (parts.length < 2) {
+            throw new DukeException("Uhhh... which task do you want me to delete?");
+        }
+        int taskNum = Integer.parseInt(parts[1]) - 1;
+        Task deletedTask = tasks.deleteTask(taskNum);
+        storage.save(tasks.getTasks());
+        return ui.formatTaskDeleted(deletedTask, tasks.size());
+    }
+
+    /**
+     * Handles the todo command for GUI and returns response string.
+     */
+    private static String handleTodoForGui(String[] parts, TaskList tasks, Ui ui, Storage storage)
+            throws DukeException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new DukeException("Uhhh... What is the name of the ToDo task again?");
+        }
+        String description = parts[1];
+        Task task = new ToDo(description);
+        tasks.addTask(task);
+        storage.save(tasks.getTasks());
+        return ui.formatTaskAdded(task, tasks.size());
+    }
+
+    /**
+     * Handles the deadline command for GUI and returns response string.
+     */
+    private static String handleDeadlineForGui(String[] parts, TaskList tasks, Ui ui, Storage storage)
+            throws DukeException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new DukeException("Uhhh... I need a description for the deadline...");
+        }
+        if (!parts[1].contains("/by")) {
+            throw new DukeException("Huh? When is the deadline? Use '/by' to tell me");
+        }
+        String[] deadlineParts = parts[1].split(" /by ");
+        if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty()) {
+            throw new DukeException("Uhhh... the deadline description can't be empty Yeah");
+        }
+        String description = deadlineParts[0];
+        String byString = deadlineParts[1].trim();
+
+        try {
+            LocalDate by = LocalDate.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            Task task = new Deadline(description, by);
+            tasks.addTask(task);
+            storage.save(tasks.getTasks());
+            return ui.formatTaskAdded(task, tasks.size());
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Uhhh... I need the date in yyyy-MM-dd format (like 2019-10-15)");
+        }
+    }
+
+    /**
+     * Handles the event command for GUI and returns response string.
+     */
+    private static String handleEventForGui(String[] parts, TaskList tasks, Ui ui, Storage storage)
+            throws DukeException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new DukeException("Uhhh... I need a description for the event Yeah");
+        }
+        if (!parts[1].contains("/from") || !parts[1].contains("/to")) {
+            throw new DukeException("Huh? When is the event? Use '/from' and '/to'");
+        }
+        String[] eventParts = parts[1].split(" /from | /to ");
+        if (eventParts.length < 3 || eventParts[0].trim().isEmpty()) {
+            throw new DukeException("Uhhh... the event description can't be empty Yeah");
+        }
+        String description = eventParts[0];
+        String fromString = eventParts[1].trim();
+        String toString = eventParts[2].trim();
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime from = LocalDateTime.parse(fromString, formatter);
+            LocalDateTime to = LocalDateTime.parse(toString, formatter);
+            Task task = new Event(description, from, to);
+            tasks.addTask(task);
+            storage.save(tasks.getTasks());
+            return ui.formatTaskAdded(task, tasks.size());
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Uhhh... I need dates in yyyy-MM-dd HHmm format (like 2019-10-15 1800)");
+        }
+    }
+
+    /**
+     * Handles the find command for GUI and returns response string.
+     */
+    private static String handleFindForGui(String[] parts, TaskList tasks, Ui ui) throws DukeException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new DukeException("Uhhh... what should I search for?");
+        }
+        String keyword = parts[1].trim();
+        java.util.ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
+        return ui.formatMatchingTasks(matchingTasks);
     }
 }

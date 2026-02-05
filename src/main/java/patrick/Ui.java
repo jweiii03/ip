@@ -19,12 +19,12 @@ public class Ui {
      */
     public void showWelcome() {
         String logo = "######                                                 \n"
-                    + "#     #  ###   #####  #####   #   ####  #    #    #    \n"
-                    + "#     # #   #    #    #    #     #    # #   #     #    \n"
-                    + "######  #   #    #    #    #  #  #      ####      #    \n"
-                    + "#       #####    #    #####   #  #      #  #      #    \n"
-                    + "#       #   #    #    #   #   #  #    # #   #          \n"
-                    + "#       #   #    #    #    #  #   ####  #    #    #    \n";
+                + "#     #  ###   #####  #####   #   ####  #    #    #    \n"
+                + "#     # #   #    #    #    #     #    # #   #     #    \n"
+                + "######  #   #    #    #    #  #  #      ####      #    \n"
+                + "#       #####    #    #####   #  #      #  #      #    \n"
+                + "#       #   #    #    #   #   #  #    # #   #          \n"
+                + "#       #   #    #    #    #  #   ####  #    #    #    \n";
 
         System.out.println("Hello from\n" + logo);
         System.out.println("Hi, I'm Patrick star.");
@@ -138,5 +138,103 @@ public class Ui {
      */
     public void close() {
         scanner.close();
+    }
+
+    // ========== Methods for GUI (return strings instead of printing) ==========
+
+    /**
+     * Formats the welcome message for GUI.
+     *
+     * @return The welcome message
+     */
+    public String formatWelcome() {
+        return "Hi, I'm Patrick Star.\nWhat can I do for you today?";
+    }
+
+    /**
+     * Formats the goodbye message for GUI.
+     *
+     * @return The goodbye message
+     */
+    public String formatGoodbye() {
+        return "What? Who you calling pinhead? Bye bye.";
+    }
+
+    /**
+     * Formats the task list as a string for GUI.
+     *
+     * @param tasks The list of tasks to format
+     * @return The formatted task list
+     */
+    public String formatTaskList(java.util.ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            return "Uhh... you don't have any tasks yet!";
+        }
+        StringBuilder sb = new StringBuilder("Uhh... here are your tasks:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append((i + 1)).append(".").append(tasks.get(i).toString()).append("\n");
+        }
+        return sb.toString().trim();
+    }
+
+    /**
+     * Formats matching tasks from a search as a string for GUI.
+     *
+     * @param tasks The list of matching tasks to format
+     * @return The formatted matching tasks
+     */
+    public String formatMatchingTasks(java.util.ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            return "Uhh... I couldn't find any tasks with that keyword!";
+        }
+        StringBuilder sb = new StringBuilder("Uhhhhhhhhhhhh, here are the matching tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append((i + 1)).append(".").append(tasks.get(i).toString()).append("\n");
+        }
+        return sb.toString().trim();
+    }
+
+    /**
+     * Formats a task marked message for GUI.
+     *
+     * @param task The task that was marked
+     * @return The formatted message
+     */
+    public String formatTaskMarked(Task task) {
+        return "Alright, yeah. I've marked this task as done:\n" + task.toString();
+    }
+
+    /**
+     * Formats a task unmarked message for GUI.
+     *
+     * @param task The task that was unmarked
+     * @return The formatted message
+     */
+    public String formatTaskUnmarked(Task task) {
+        return "Alright I will unmark this task:\n" + task.toString();
+    }
+
+    /**
+     * Formats a task deleted message for GUI.
+     *
+     * @param task The task that was deleted
+     * @param remainingTasks The number of tasks remaining
+     * @return The formatted message
+     */
+    public String formatTaskDeleted(Task task, int remainingTasks) {
+        return "Alright yeah. I will remove this task:\n  " + task.toString()
+                + "\nNow you have " + remainingTasks + " tasks in the list.";
+    }
+
+    /**
+     * Formats a task added message for GUI.
+     *
+     * @param task The task that was added
+     * @param totalTasks The total number of tasks
+     * @return The formatted message
+     */
+    public String formatTaskAdded(Task task, int totalTasks) {
+        return "Alright. I've added this task:\n" + task.toString()
+                + "\nNow you have " + totalTasks + " tasks in the list.";
     }
 }
