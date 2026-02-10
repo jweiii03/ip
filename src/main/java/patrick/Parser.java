@@ -15,6 +15,21 @@ import patrick.task.ToDo;
  */
 
 public class Parser {
+    // Constants for date/time formats
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String DATETIME_FORMAT = "yyyy-MM-dd HHmm";
+
+    // Constants for command parsing
+    private static final int COMMAND_SPLIT_LIMIT = 2;
+    private static final int TASK_INDEX_OFFSET = 1; // Convert 1-indexed user input to 0-indexed array
+
+    // Constants for command delimiters
+    private static final String DEADLINE_DELIMITER = " /by ";
+    private static final String EVENT_DELIMITER_REGEX = " /from | /to ";
+
+    // Constants for minimum parts needed after splitting
+    private static final int MIN_PARTS_WITH_ARGUMENT = 2;
+    private static final int MIN_EVENT_PARTS = 3;
 
     /**
      * Parses and executes a user command for GUI (returns response string).
@@ -27,7 +42,7 @@ public class Parser {
      */
     public static String parseCommandForGui(String input, TaskList tasks, Ui ui, Storage storage) {
         try {
-            String[] parts = input.split(" ", 2);
+            String[] parts = input.split(" ", COMMAND_SPLIT_LIMIT);
             String command = parts[0].toLowerCase();
 
             switch (command) {
@@ -80,7 +95,7 @@ public class Parser {
      * @throws DukeException if there's an error executing the command
      */
     public static boolean parseCommand(String input, TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        String[] parts = input.split(" ", 2);
+        String[] parts = input.split(" ", COMMAND_SPLIT_LIMIT);
         String command = parts[0].toLowerCase();
 
         try {
@@ -133,6 +148,32 @@ public class Parser {
     }
 
     /**
+     * Validates that command has required number of parts.
+     *
+     * @param parts The split command parts
+     * @param minParts Minimum number of parts required
+     * @param errorMessage Error message if validation fails
+     * @throws DukeException if validation fails
+     */
+    private static void validateCommandParts(String[] parts, int minParts, String errorMessage)
+            throws DukeException {
+        if (parts.length < minParts) {
+            throw new DukeException(errorMessage);
+        }
+    }
+
+    /**
+     * Parses task number from command parts (converts from 1-indexed to 0-indexed).
+     *
+     * @param parts The split command parts
+     * @return The 0-indexed task number
+     * @throws NumberFormatException if parts[1] is not a valid integer
+     */
+    private static int parseTaskNumber(String[] parts) {
+        return Integer.parseInt(parts[1]) - TASK_INDEX_OFFSET;
+    }
+
+    /**
      * Handles the mark command to mark a task as done.
      *
      * @param parts The split command parts.
@@ -142,10 +183,8 @@ public class Parser {
      * @throws DukeException If task number is invalid or missing.
      */
     private static void handleMark(String[] parts, TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (parts.length < 2) {
-            throw new DukeException("Uhhh... which task do I mark?");
-        }
-        int taskNum = Integer.parseInt(parts[1]) - 1;
+        validateCommandParts(parts, MIN_PARTS_WITH_ARGUMENT, "Uhhh... which task do I mark?");
+        int taskNum = parseTaskNumber(parts);
         assert taskNum >= -1 : "Task number after parsing should be >= -1";
 
         tasks.markTask(taskNum);
@@ -163,10 +202,8 @@ public class Parser {
      * @throws DukeException If task number is invalid or missing.
      */
     private static void handleUnmark(String[] parts, TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (parts.length < 2) {
-            throw new DukeException("Uhhh... which task do I unmark?");
-        }
-        int taskNum = Integer.parseInt(parts[1]) - 1;
+        validateCommandParts(parts, MIN_PARTS_WITH_ARGUMENT, "Uhhh... which task do I unmark?");
+        int taskNum = parseTaskNumber(parts);
         tasks.unmarkTask(taskNum);
         ui.showTaskUnmarked(tasks.getTask(taskNum));
         storage.save(tasks.getTasks());
@@ -182,10 +219,8 @@ public class Parser {
      * @throws DukeException If task number is invalid or missing.
      */
     private static void handleDelete(String[] parts, TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (parts.length < 2) {
-            throw new DukeException("Uhhh... which task do you want me to delete?");
-        }
-        int taskNum = Integer.parseInt(parts[1]) - 1;
+        validateCommandParts(parts, MIN_PARTS_WITH_ARGUMENT, "Uhhh... which task do you want me to delete?");
+        int taskNum = parseTaskNumber(parts);
         Task deletedTask = tasks.deleteTask(taskNum);
         ui.showTaskDeleted(deletedTask, tasks.size());
         storage.save(tasks.getTasks());
@@ -201,7 +236,7 @@ public class Parser {
      * @throws DukeException If description is missing.
      */
     private static void handleTodo(String[] parts, TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+        if (parts.length < MIN_PARTS_WITH_ARGUMENT || parts[1].trim().isEmpty()) {
             throw new DukeException("Uhhh... What is the name of the ToDo task again?");
         }
         String description = parts[1];
@@ -223,21 +258,21 @@ public class Parser {
      * @throws DukeException If description or date is missing or invalid.
      */
     private static void handleDeadline(String[] parts, TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+        if (parts.length < MIN_PARTS_WITH_ARGUMENT || parts[1].trim().isEmpty()) {
             throw new DukeException("Uhhh... I need a description for the deadline...");
         }
         if (!parts[1].contains("/by")) {
             throw new DukeException("Huh? When is the deadline? Use '/by' to tell me");
         }
-        String[] deadlineParts = parts[1].split(" /by ");
-        if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty()) {
+        String[] deadlineParts = parts[1].split(DEADLINE_DELIMITER);
+        if (deadlineParts.length < MIN_PARTS_WITH_ARGUMENT || deadlineParts[0].trim().isEmpty()) {
             throw new DukeException("Uhhh... the deadline description can't be empty Yeah");
         }
         String description = deadlineParts[0];
         String byString = deadlineParts[1].trim();
 
         try {
-            LocalDate by = LocalDate.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate by = LocalDate.parse(byString, DateTimeFormatter.ofPattern(DATE_FORMAT));
             Task task = new Deadline(description, by);
             tasks.addTask(task);
             ui.showTaskAdded(task, tasks.size());
@@ -257,14 +292,14 @@ public class Parser {
      * @throws DukeException If description or times are missing or invalid.
      */
     private static void handleEvent(String[] parts, TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+        if (parts.length < MIN_PARTS_WITH_ARGUMENT || parts[1].trim().isEmpty()) {
             throw new DukeException("Uhhh... I need a description for the event Yeah");
         }
         if (!parts[1].contains("/from") || !parts[1].contains("/to")) {
             throw new DukeException("Huh? When is the event? Use '/from' and '/to'");
         }
-        String[] eventParts = parts[1].split(" /from | /to ");
-        if (eventParts.length < 3 || eventParts[0].trim().isEmpty()) {
+        String[] eventParts = parts[1].split(EVENT_DELIMITER_REGEX);
+        if (eventParts.length < MIN_EVENT_PARTS || eventParts[0].trim().isEmpty()) {
             throw new DukeException("Uhhh... the event description can't be empty Yeah");
         }
         String description = eventParts[0];
@@ -272,7 +307,7 @@ public class Parser {
         String toString = eventParts[2].trim();
 
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATETIME_FORMAT);
             LocalDateTime from = LocalDateTime.parse(fromString, formatter);
             LocalDateTime to = LocalDateTime.parse(toString, formatter);
             Task task = new Event(description, from, to);
@@ -293,7 +328,7 @@ public class Parser {
      * @throws DukeException If the search keyword is missing or empty
      */
     private static void handleFind(String[] parts, TaskList tasks, Ui ui) throws DukeException {
-        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+        if (parts.length < MIN_PARTS_WITH_ARGUMENT || parts[1].trim().isEmpty()) {
             throw new DukeException("Uhhh... what should I search for?");
         }
         String keyword = parts[1].trim();
@@ -308,10 +343,8 @@ public class Parser {
      */
     private static String handleMarkForGui(String[] parts, TaskList tasks, Ui ui, Storage storage)
             throws DukeException {
-        if (parts.length < 2) {
-            throw new DukeException("Uhhh... which task do I mark?");
-        }
-        int taskNum = Integer.parseInt(parts[1]) - 1;
+        validateCommandParts(parts, MIN_PARTS_WITH_ARGUMENT, "Uhhh... which task do I mark?");
+        int taskNum = parseTaskNumber(parts);
         tasks.markTask(taskNum);
         storage.save(tasks.getTasks());
         return ui.formatTaskMarked(tasks.getTask(taskNum));
@@ -322,10 +355,8 @@ public class Parser {
      */
     private static String handleUnmarkForGui(String[] parts, TaskList tasks, Ui ui, Storage storage)
             throws DukeException {
-        if (parts.length < 2) {
-            throw new DukeException("Uhhh... which task do I unmark?");
-        }
-        int taskNum = Integer.parseInt(parts[1]) - 1;
+        validateCommandParts(parts, MIN_PARTS_WITH_ARGUMENT, "Uhhh... which task do I unmark?");
+        int taskNum = parseTaskNumber(parts);
         tasks.unmarkTask(taskNum);
         storage.save(tasks.getTasks());
         return ui.formatTaskUnmarked(tasks.getTask(taskNum));
@@ -336,10 +367,8 @@ public class Parser {
      */
     private static String handleDeleteForGui(String[] parts, TaskList tasks, Ui ui, Storage storage)
             throws DukeException {
-        if (parts.length < 2) {
-            throw new DukeException("Uhhh... which task do you want me to delete?");
-        }
-        int taskNum = Integer.parseInt(parts[1]) - 1;
+        validateCommandParts(parts, MIN_PARTS_WITH_ARGUMENT, "Uhhh... which task do you want me to delete?");
+        int taskNum = parseTaskNumber(parts);
         Task deletedTask = tasks.deleteTask(taskNum);
         storage.save(tasks.getTasks());
         return ui.formatTaskDeleted(deletedTask, tasks.size());
@@ -350,7 +379,7 @@ public class Parser {
      */
     private static String handleTodoForGui(String[] parts, TaskList tasks, Ui ui, Storage storage)
             throws DukeException {
-        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+        if (parts.length < MIN_PARTS_WITH_ARGUMENT || parts[1].trim().isEmpty()) {
             throw new DukeException("Uhhh... What is the name of the ToDo task again?");
         }
         String description = parts[1];
@@ -365,21 +394,21 @@ public class Parser {
      */
     private static String handleDeadlineForGui(String[] parts, TaskList tasks, Ui ui, Storage storage)
             throws DukeException {
-        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+        if (parts.length < MIN_PARTS_WITH_ARGUMENT || parts[1].trim().isEmpty()) {
             throw new DukeException("Uhhh... I need a description for the deadline...");
         }
         if (!parts[1].contains("/by")) {
             throw new DukeException("Huh? When is the deadline? Use '/by' to tell me");
         }
-        String[] deadlineParts = parts[1].split(" /by ");
-        if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty()) {
+        String[] deadlineParts = parts[1].split(DEADLINE_DELIMITER);
+        if (deadlineParts.length < MIN_PARTS_WITH_ARGUMENT || deadlineParts[0].trim().isEmpty()) {
             throw new DukeException("Uhhh... the deadline description can't be empty Yeah");
         }
         String description = deadlineParts[0];
         String byString = deadlineParts[1].trim();
 
         try {
-            LocalDate by = LocalDate.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate by = LocalDate.parse(byString, DateTimeFormatter.ofPattern(DATE_FORMAT));
             Task task = new Deadline(description, by);
             tasks.addTask(task);
             storage.save(tasks.getTasks());
@@ -394,14 +423,14 @@ public class Parser {
      */
     private static String handleEventForGui(String[] parts, TaskList tasks, Ui ui, Storage storage)
             throws DukeException {
-        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+        if (parts.length < MIN_PARTS_WITH_ARGUMENT || parts[1].trim().isEmpty()) {
             throw new DukeException("Uhhh... I need a description for the event Yeah");
         }
         if (!parts[1].contains("/from") || !parts[1].contains("/to")) {
             throw new DukeException("Huh? When is the event? Use '/from' and '/to'");
         }
-        String[] eventParts = parts[1].split(" /from | /to ");
-        if (eventParts.length < 3 || eventParts[0].trim().isEmpty()) {
+        String[] eventParts = parts[1].split(EVENT_DELIMITER_REGEX);
+        if (eventParts.length < MIN_EVENT_PARTS || eventParts[0].trim().isEmpty()) {
             throw new DukeException("Uhhh... the event description can't be empty Yeah");
         }
         String description = eventParts[0];
@@ -409,7 +438,7 @@ public class Parser {
         String toString = eventParts[2].trim();
 
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATETIME_FORMAT);
             LocalDateTime from = LocalDateTime.parse(fromString, formatter);
             LocalDateTime to = LocalDateTime.parse(toString, formatter);
             Task task = new Event(description, from, to);
@@ -425,7 +454,7 @@ public class Parser {
      * Handles the find command for GUI and returns response string.
      */
     private static String handleFindForGui(String[] parts, TaskList tasks, Ui ui) throws DukeException {
-        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+        if (parts.length < MIN_PARTS_WITH_ARGUMENT || parts[1].trim().isEmpty()) {
             throw new DukeException("Uhhh... what should I search for?");
         }
         String keyword = parts[1].trim();
