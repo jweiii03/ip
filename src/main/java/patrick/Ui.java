@@ -343,4 +343,40 @@ public class Ui {
         assert result != null : "Formatted message should not be null";
         return result;
     }
+
+    /**
+     * Shows the help message with all available commands
+     */
+    public void showHelp() {
+        System.out.println("Uhhh... Here are the commands that I know of:");
+        System.out.println("• list - Shows all your tasks");
+        System.out.println("• todo <description> - Adds a new todo task");
+        System.out.println("• deadline <description> /by <yyyy-MM-dd> - Adds a deadline");
+        System.out.println("• event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm> - Adds an event");
+        System.out.println("• mark <task number> - Marks a task as done");
+        System.out.println("• unmark <task number> - Marks a task as not done");
+        System.out.println("• delete <task number> - Deletes a task");
+        System.out.println("• find <keyword> - Searches for tasks containing the keyword");
+        System.out.println("• help - Shows this help message");
+        System.out.println("• bye - Exits the application");
+    }
+
+    /**
+     * Formats the help message for GUI
+     *
+     * @return The formatted help message
+     */
+    public String formatHelp() {
+        return "Uhhh... Here are the commands that I know of:\n\n"
+                + "• list - Shows all your tasks\n"
+                + "• todo <description> - Adds a new todo task\n"
+                + "• deadline <description> /by <yyyy-MM-dd> - Adds a deadline\n"
+                + "• event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm> - Adds an event\n"
+                + "• mark <task number> - Marks a task as done\n"
+                + "• unmark <task number> - Marks a task as not done\n"
+                + "• delete <task number> - Deletes a task\n"
+                + "• find <keyword> - Searches for tasks containing the keyword\n"
+                + "• help - Shows this help message\n"
+                + "• bye - Exits the application";
+    }
 }

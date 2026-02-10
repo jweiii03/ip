@@ -73,6 +73,9 @@ public class Parser {
             case "find":
                 return handleFindForGui(parts, tasks, ui);
 
+            case "help":
+                return ui.formatHelp();
+
             default:
                 throw new DukeException("Uhhh... I don't understand what that means. Is mayonnaise a command?");
             }
@@ -133,6 +136,10 @@ public class Parser {
 
             case "find":
                 handleFind(parts, tasks, ui);
+                break;
+
+            case "help":
+                ui.showHelp();
                 break;
 
             default:
