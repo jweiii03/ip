@@ -23,21 +23,7 @@ public class TaskList {
      * @param task The task to add
      */
     public void addTask(Task task) {
-        // #region agent log
-        try (java.io.FileWriter fw = new java.io.FileWriter("/Users/hjw/Documents/CS2103T/Ip"
-                + "/.cursor/debug.log", true)) {
-            String payload = String.format(
-                    "{\"sessionId\":\"debug-session\",\"runId\":\"pre-fix\","
-                            + "\"hypothesisId\":\"H2\",\"location\":\"TaskList.addTask\","
-                            + "\"message\":\"addTask\",\"data\":{\"sizeBefore\":%d},"
-                            + "\"timestamp\":%d}\n",
-                    tasks.size(),
-                    System.currentTimeMillis());
-            fw.write(payload);
-        } catch (java.io.IOException ignored) {
-            // swallow
-        }
-        // #endregion
+        assert task != null : "Task to be added cannot be null";
         tasks.add(task);
     }
 
@@ -51,23 +37,10 @@ public class TaskList {
         if (index < 0 || index >= tasks.size()) {
             throw new DukeException("Huh? That task doesn't exist...");
         }
-        // #region agent log
-        try (java.io.FileWriter fw = new java.io.FileWriter("/Users/hjw/Documents/CS2103T/Ip"
-                + "/.cursor/debug.log", true)) {
-            String payload = String.format(
-                    "{\"sessionId\":\"debug-session\",\"runId\":\"pre-fix\","
-                            + "\"hypothesisId\":\"H2\",\"location\":\"TaskList.deleteTask\","
-                            + "\"message\":\"deleteTask\",\"data\":{\"index\":%d,"
-                            + "\"sizeBefore\":%d},\"timestamp\":%d}\n",
-                    index,
-                    tasks.size(),
-                    System.currentTimeMillis());
-            fw.write(payload);
-        } catch (java.io.IOException ignored) {
-            // swallow
-        }
-        // #endregion
-        return tasks.remove(index);
+
+        Task deletedTask = tasks.remove(index);
+        assert deletedTask != null : "Deleted task should not be null";
+        return deletedTask;
     }
 
     /**
@@ -80,7 +53,9 @@ public class TaskList {
         if (index < 0 || index >= tasks.size()) {
             throw new DukeException("Huh? That task doesn't exist...");
         }
-        return tasks.get(index);
+        Task task = tasks.get(index);
+        assert task != null : "Retrieved task should not be null for valid index";
+        return task;
     }
 
     /**
@@ -92,21 +67,7 @@ public class TaskList {
         if (index < 0 || index >= tasks.size()) {
             throw new DukeException("Huh? That task doesn't exist...");
         }
-        // #region agent log
-        try (java.io.FileWriter fw = new java.io.FileWriter("/Users/hjw/Documents/CS2103T/Ip"
-                + "/.cursor/debug.log", true)) {
-            String payload = String.format(
-                    "{\"sessionId\":\"debug-session\",\"runId\":\"pre-fix\","
-                            + "\"hypothesisId\":\"H2\",\"location\":\"TaskList.markTask\","
-                            + "\"message\":\"markTask\",\"data\":{\"index\":%d},"
-                            + "\"timestamp\":%d}\n",
-                    index,
-                    System.currentTimeMillis());
-            fw.write(payload);
-        } catch (java.io.IOException ignored) {
-            // swallow
-        }
-        // #endregion
+
         tasks.get(index).markAsDone();
     }
 
@@ -119,21 +80,7 @@ public class TaskList {
         if (index < 0 || index >= tasks.size()) {
             throw new DukeException("Huh? That task doesn't exist...");
         }
-        // #region agent log
-        try (java.io.FileWriter fw = new java.io.FileWriter("/Users/hjw/Documents/CS2103T/Ip"
-                + "/.cursor/debug.log", true)) {
-            String payload = String.format(
-                    "{\"sessionId\":\"debug-session\",\"runId\":\"pre-fix\","
-                            + "\"hypothesisId\":\"H2\",\"location\":\"TaskList.unmarkTask\","
-                            + "\"message\":\"unmarkTask\",\"data\":{\"index\":%d},"
-                            + "\"timestamp\":%d}\n",
-                    index,
-                    System.currentTimeMillis());
-            fw.write(payload);
-        } catch (java.io.IOException ignored) {
-            // swallow
-        }
-        // #endregion
+
         tasks.get(index).markAsNotDone();
     }
 

@@ -14,6 +14,8 @@ public class PatrickStar {
      * @param filePath The file path to store and load tasks from
      */
     public PatrickStar(String filePath) {
+        assert filePath != null : "File path cannot be null";
+
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -22,6 +24,10 @@ public class PatrickStar {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+
+        assert ui != null : "UI should be initialized";
+        assert storage != null : "Storage should be initialized";
+        assert tasks != null : "TaskList should be initialized";
     }
 
     /**

@@ -146,6 +146,8 @@ public class Parser {
             throw new DukeException("Uhhh... which task do I mark?");
         }
         int taskNum = Integer.parseInt(parts[1]) - 1;
+        assert taskNum >= -1 : "Task number after parsing should be >= -1";
+
         tasks.markTask(taskNum);
         ui.showTaskMarked(tasks.getTask(taskNum));
         storage.save(tasks.getTasks());
@@ -204,6 +206,8 @@ public class Parser {
         }
         String description = parts[1];
         Task task = new ToDo(description);
+        assert task != null : "Created task should not be null";
+
         tasks.addTask(task);
         ui.showTaskAdded(task, tasks.size());
         storage.save(tasks.getTasks());

@@ -41,6 +41,7 @@ public class Storage {
 
         // If file doesn't exist, return empty list
         if (!file.exists()) {
+            assert tasks != null : "Tasks list should not be null";
             return tasks;
         }
 
@@ -63,6 +64,7 @@ public class Storage {
             throw new DukeException("Uhhh... I couldn't find the file to load tasks.");
         }
 
+        assert tasks != null : "Loaded tasks list should not be null";
         return tasks;
     }
 
