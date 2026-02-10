@@ -16,13 +16,22 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        assert stage != null : "Stage cannot be null";
+        assert patrick != null : "PatrickStar instance should be initialized";
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+            assert ap != null : "Loaded AnchorPane should not be null";
+
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Patrick Star");
-            fxmlLoader.<MainWindow>getController().setPatrick(patrick);
+
+            MainWindow controller = fxmlLoader.<MainWindow>getController();
+            assert controller != null : "Controller should not be null";
+            controller.setPatrick(patrick);
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

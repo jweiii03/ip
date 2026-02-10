@@ -187,6 +187,8 @@ public class Ui {
      * @param totalTasks The total number of tasks
      */
     public void showTaskAdded(Task task, int totalTasks) {
+        assert task != null : "Task cannot be null";
+        assert totalTasks > 0 : "Total tasks must be positive after adding a task";
         showTaskAddedWithOptionalPrefix(task, totalTasks, "");
     }
 

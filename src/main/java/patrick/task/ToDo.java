@@ -21,21 +21,7 @@ public class ToDo extends Task {
     @Override
     public String toFileFormat() {
         String formatted = "T | " + super.toFileFormat();
-        // #region agent log
-        try (java.io.FileWriter fw = new java.io.FileWriter("/Users/hjw/Documents/CS2103T/Ip"
-                + "/.cursor/debug.log", true)) {
-            String payload = String.format(
-                    "{\"sessionId\":\"debug-session\",\"runId\":\"pre-fix\","
-                            + "\"hypothesisId\":\"H3\",\"location\":\"ToDo.toFileFormat\","
-                            + "\"message\":\"toFileFormat\",\"data\":{\"value\":\"%s\"},"
-                            + "\"timestamp\":%d}\n",
-                    formatted.replace("\"", "\\\""),
-                    System.currentTimeMillis());
-            fw.write(payload);
-        } catch (java.io.IOException ignored) {
-            // swallow
-        }
-        // #endregion
+
         return formatted;
     }
 }

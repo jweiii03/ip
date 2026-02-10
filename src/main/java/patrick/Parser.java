@@ -241,6 +241,8 @@ public class Parser {
         }
         String description = parts[1];
         Task task = new ToDo(description);
+        assert task != null : "Created task should not be null";
+
         tasks.addTask(task);
         ui.showTaskAdded(task, tasks.size());
         storage.save(tasks.getTasks());
