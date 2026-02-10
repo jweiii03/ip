@@ -65,6 +65,8 @@ public class Ui {
      * @param tasks The list of tasks to display
      */
     public void showTaskList(java.util.ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks list cannot be null";
+
         System.out.println("Uhh... here are your tasks: ");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i));
@@ -76,6 +78,8 @@ public class Ui {
      * @param tasks The list of matching tasks to display
      */
     public void showMatchingTasks(java.util.ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks list cannot be null";
+
         System.out.println("Uhhhhhhhhhhhh, here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i));
@@ -87,6 +91,8 @@ public class Ui {
      * @param task The task that was marked
      */
     public void showTaskMarked(Task task) {
+        assert task != null : "Task cannot be null";
+
         System.out.println("Alright, yeah. I've marked this task as done:");
         System.out.println(task);
     }
@@ -96,6 +102,8 @@ public class Ui {
      * @param task The task that was unmarked
      */
     public void showTaskUnmarked(Task task) {
+        assert task != null : "Task cannot be null";
+
         System.out.println("Alright I will unmark this task:");
         System.out.println(task);
     }
@@ -106,6 +114,9 @@ public class Ui {
      * @param remainingTasks The number of tasks remaining
      */
     public void showTaskDeleted(Task task, int remainingTasks) {
+        assert task != null : "Task cannot be null";
+        assert remainingTasks >= 0 : "Remaining tasks count must be non-negative";
+
         System.out.println("Alright yeah. I will remove this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + remainingTasks + " tasks in the list.");
@@ -117,6 +128,9 @@ public class Ui {
      * @param totalTasks The total number of tasks
      */
     public void showTaskAdded(Task task, int totalTasks) {
+        assert task != null : "Task cannot be null";
+        assert totalTasks > 0 : "Total tasks must be positive after adding a task";
+
         System.out.println("Alright. I've added this task:");
         System.out.println(task);
         System.out.println("Now you have " + totalTasks + " tasks in the list.");
@@ -128,6 +142,9 @@ public class Ui {
      * @param totalTasks The total number of tasks
      */
     public void showTaskAddedWithUhh(Task task, int totalTasks) {
+        assert task != null : "Task cannot be null";
+        assert totalTasks > 0 : "Total tasks must be positive after adding a task";
+
         System.out.println("Alright. I've added this task:");
         System.out.println(task);
         System.out.println("Uhhh... Now you have " + totalTasks + " tasks in the list.");
@@ -167,6 +184,8 @@ public class Ui {
      * @return The formatted task list
      */
     public String formatTaskList(java.util.ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks list cannot be null";
+
         if (tasks.isEmpty()) {
             return "Uhh... you don't have any tasks yet!";
         }
@@ -174,7 +193,10 @@ public class Ui {
         for (int i = 0; i < tasks.size(); i++) {
             sb.append((i + 1)).append(".").append(tasks.get(i).toString()).append("\n");
         }
-        return sb.toString().trim();
+
+        String result = sb.toString().trim();
+        assert result != null : "Formatted task list should not be null";
+        return result;
     }
 
     /**
@@ -184,6 +206,8 @@ public class Ui {
      * @return The formatted matching tasks
      */
     public String formatMatchingTasks(java.util.ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks list cannot be null";
+
         if (tasks.isEmpty()) {
             return "Uhh... I couldn't find any tasks with that keyword!";
         }
@@ -191,7 +215,10 @@ public class Ui {
         for (int i = 0; i < tasks.size(); i++) {
             sb.append((i + 1)).append(".").append(tasks.get(i).toString()).append("\n");
         }
-        return sb.toString().trim();
+
+        String result = sb.toString().trim();
+        assert result != null : "Formatted matching tasks should not be null";
+        return result;
     }
 
     /**
@@ -201,7 +228,11 @@ public class Ui {
      * @return The formatted message
      */
     public String formatTaskMarked(Task task) {
-        return "Alright, yeah. I've marked this task as done:\n" + task.toString();
+        assert task != null : "Task cannot be null";
+
+        String result = "Alright, yeah. I've marked this task as done:\n" + task.toString();
+        assert result != null : "Formatted message should not be null";
+        return result;
     }
 
     /**
@@ -211,7 +242,11 @@ public class Ui {
      * @return The formatted message
      */
     public String formatTaskUnmarked(Task task) {
-        return "Alright I will unmark this task:\n" + task.toString();
+        assert task != null : "Task cannot be null";
+
+        String result = "Alright I will unmark this task:\n" + task.toString();
+        assert result != null : "Formatted message should not be null";
+        return result;
     }
 
     /**
@@ -222,8 +257,13 @@ public class Ui {
      * @return The formatted message
      */
     public String formatTaskDeleted(Task task, int remainingTasks) {
-        return "Alright yeah. I will remove this task:\n  " + task.toString()
+        assert task != null : "Task cannot be null";
+        assert remainingTasks >= 0 : "Remaining tasks count must be non-negative";
+
+        String result = "Alright yeah. I will remove this task:\n  " + task.toString()
                 + "\nNow you have " + remainingTasks + " tasks in the list.";
+        assert result != null : "Formatted message should not be null";
+        return result;
     }
 
     /**
@@ -234,7 +274,12 @@ public class Ui {
      * @return The formatted message
      */
     public String formatTaskAdded(Task task, int totalTasks) {
-        return "Alright. I've added this task:\n" + task.toString()
+        assert task != null : "Task cannot be null";
+        assert totalTasks > 0 : "Total tasks must be positive after adding a task";
+
+        String result = "Alright. I've added this task:\n" + task.toString()
                 + "\nNow you have " + totalTasks + " tasks in the list.";
+        assert result != null : "Formatted message should not be null";
+        return result;
     }
 }
