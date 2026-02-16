@@ -3,13 +3,13 @@ package patrick;
 /**
  * Represents an exception specific to Duke/Patrick application errors
  */
-public class DukeException extends Exception {
+public class PatrickException extends Exception {
     /**
      * Creates a new DukeException with the specified error message
      *
      * @param message The error message
      */
-    public DukeException(String message) {
+    public PatrickException(String message) {
         super(message);
     }
 }

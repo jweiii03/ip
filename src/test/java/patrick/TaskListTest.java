@@ -25,7 +25,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void deleteTask_validIndex_deletesTask() throws DukeException {
+    public void deleteTask_validIndex_deletesTask() throws PatrickException {
         Task task1 = new ToDo("task 1");
         Task task2 = new ToDo("task 2");
         taskList.addTask(task1);
@@ -39,13 +39,13 @@ public class TaskListTest {
 
     @Test
     public void deleteTask_invalidIndex_throwsException() {
-        assertThrows(DukeException.class, () -> {
+        assertThrows(PatrickException.class, () -> {
             taskList.deleteTask(0);
         });
     }
 
     @Test
-    public void markTask_validIndex_marksTaskAsDone() throws DukeException {
+    public void markTask_validIndex_marksTaskAsDone() throws PatrickException {
         Task task = new ToDo("read book");
         taskList.addTask(task);
 
@@ -56,13 +56,13 @@ public class TaskListTest {
 
     @Test
     public void markTask_invalidIndex_throwsException() {
-        assertThrows(DukeException.class, () -> {
+        assertThrows(PatrickException.class, () -> {
             taskList.markTask(5);
         });
     }
 
     @Test
-    public void unmarkTask_validIndex_unmarksTask() throws DukeException {
+    public void unmarkTask_validIndex_unmarksTask() throws PatrickException {
         Task task = new ToDo("read book");
         taskList.addTask(task);
         taskList.markTask(0);
@@ -73,7 +73,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void getTask_validIndex_returnsTask() throws DukeException {
+    public void getTask_validIndex_returnsTask() throws PatrickException {
         Task task = new ToDo("read book");
         taskList.addTask(task);
 
@@ -84,7 +84,7 @@ public class TaskListTest {
 
     @Test
     public void getTask_invalidIndex_throwsException() {
-        assertThrows(DukeException.class, () -> {
+        assertThrows(PatrickException.class, () -> {
             taskList.getTask(0);
         });
     }

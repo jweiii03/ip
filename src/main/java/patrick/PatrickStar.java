@@ -20,7 +20,7 @@ public class PatrickStar {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (PatrickException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
@@ -40,7 +40,7 @@ public class PatrickStar {
             try {
                 String fullCommand = ui.readCommand();
                 isExit = Parser.parseCommand(fullCommand, tasks, ui, storage);
-            } catch (DukeException e) {
+            } catch (PatrickException e) {
                 ui.showError(e.getMessage());
             }
         }
@@ -68,6 +68,6 @@ public class PatrickStar {
     }
 
     public static void main(String[] args) {
-        new PatrickStar("./data/duke.txt").run();
+        new PatrickStar("./data/Patrick.txt").run();
     }
 }

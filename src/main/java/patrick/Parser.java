@@ -77,9 +77,9 @@ public class Parser {
                 return ui.formatHelp();
 
             default:
-                throw new DukeException("Uhhh... I don't understand what that means. Is mayonnaise a command?");
+                throw new PatrickException("Uhhh... I don't understand what that means. Is mayonnaise a command?");
             }
-        } catch (DukeException e) {
+        } catch (PatrickException e) {
             return e.getMessage();
         } catch (NumberFormatException e) {
             return "Uhhh... that doesn't look like a number to me...";
@@ -95,9 +95,9 @@ public class Parser {
      * @param ui The UI handler
      * @param storage The storage handler
      * @return true if the command is "bye", false otherwise
-     * @throws DukeException if there's an error executing the command
+     * @throws PatrickException if there's an error executing the command
      */
-    public static boolean parseCommand(String input, TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public static boolean parseCommand(String input, TaskList tasks, Ui ui, Storage storage) throws PatrickException {
         String[] parts = input.split(" ", COMMAND_SPLIT_LIMIT);
         String command = parts[0].toLowerCase();
 
@@ -143,12 +143,12 @@ public class Parser {
                 break;
 
             default:
-                throw new DukeException("Uhhh... I don't understand what that means. Is mayonnaise a command?");
+                throw new PatrickException("Uhhh... I don't understand what that means. Is mayonnaise a command?");
             }
         } catch (NumberFormatException e) {
-            throw new DukeException("Uhhh... that doesn't look like a number to me...");
+            throw new PatrickException("Uhhh... that doesn't look like a number to me...");
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("I think something's missing in your command");
+            throw new PatrickException("I think something's missing in your command");
         }
 
         return false;
@@ -160,12 +160,12 @@ public class Parser {
      * @param parts The split command parts
      * @param minParts Minimum number of parts required
      * @param errorMessage Error message if validation fails
-     * @throws DukeException if validation fails
+     * @throws PatrickException if validation fails
      */
     private static void validateCommandParts(String[] parts, int minParts, String errorMessage)
-            throws DukeException {
+            throws PatrickException {
         if (parts.length < minParts) {
-            throw new DukeException(errorMessage);
+            throw new PatrickException(errorMessage);
         }
     }
 
@@ -187,9 +187,9 @@ public class Parser {
      * @param tasks The task list.
      * @param ui The UI handler.
      * @param storage The storage handler.
-     * @throws DukeException If task number is invalid or missing.
+     * @throws PatrickException If task number is invalid or missing.
      */
-    private static void handleMark(String[] parts, TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    private static void handleMark(String[] parts, TaskList tasks, Ui ui, Storage storage) throws PatrickException {
         validateCommandParts(parts, MIN_PARTS_WITH_ARGUMENT, "Uhhh... which task do I mark?");
         int taskNum = parseTaskNumber(parts);
         assert taskNum >= -1 : "Task number after parsing should be >= -1";
@@ -206,9 +206,9 @@ public class Parser {
      * @param tasks The task list.
      * @param ui The UI handler.
      * @param storage The storage handler.
-     * @throws DukeException If task number is invalid or missing.
+     * @throws PatrickException If task number is invalid or missing.
      */
-    private static void handleUnmark(String[] parts, TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    private static void handleUnmark(String[] parts, TaskList tasks, Ui ui, Storage storage) throws PatrickException {
         validateCommandParts(parts, MIN_PARTS_WITH_ARGUMENT, "Uhhh... which task do I unmark?");
         int taskNum = parseTaskNumber(parts);
         tasks.unmarkTask(taskNum);
@@ -223,9 +223,9 @@ public class Parser {
      * @param tasks The task list.
      * @param ui The UI handler.
      * @param storage The storage handler.
-     * @throws DukeException If task number is invalid or missing.
+     * @throws PatrickException If task number is invalid or missing.
      */
-    private static void handleDelete(String[] parts, TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    private static void handleDelete(String[] parts, TaskList tasks, Ui ui, Storage storage) throws PatrickException {
         validateCommandParts(parts, MIN_PARTS_WITH_ARGUMENT, "Uhhh... which task do you want me to delete?");
         int taskNum = parseTaskNumber(parts);
         Task deletedTask = tasks.deleteTask(taskNum);
@@ -240,11 +240,11 @@ public class Parser {
      * @param tasks The task list.
      * @param ui The UI handler.
      * @param storage The storage handler.
-     * @throws DukeException If description is missing.
+     * @throws PatrickException If description is missing.
      */
-    private static void handleTodo(String[] parts, TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    private static void handleTodo(String[] parts, TaskList tasks, Ui ui, Storage storage) throws PatrickException {
         if (parts.length < MIN_PARTS_WITH_ARGUMENT || parts[1].trim().isEmpty()) {
-            throw new DukeException("Uhhh... What is the name of the ToDo task again?");
+            throw new PatrickException("Uhhh... What is the name of the ToDo task again?");
         }
         String description = parts[1];
         Task task = new ToDo(description);
@@ -262,18 +262,18 @@ public class Parser {
      * @param tasks The task list.
      * @param ui The UI handler.
      * @param storage The storage handler.
-     * @throws DukeException If description or date is missing or invalid.
+     * @throws PatrickException If description or date is missing or invalid.
      */
-    private static void handleDeadline(String[] parts, TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    private static void handleDeadline(String[] parts, TaskList tasks, Ui ui, Storage storage) throws PatrickException {
         if (parts.length < MIN_PARTS_WITH_ARGUMENT || parts[1].trim().isEmpty()) {
-            throw new DukeException("Uhhh... I need a description for the deadline...");
+            throw new PatrickException("Uhhh... I need a description for the deadline...");
         }
         if (!parts[1].contains("/by")) {
-            throw new DukeException("Huh? When is the deadline? Use '/by' to tell me");
+            throw new PatrickException("Huh? When is the deadline? Use '/by' to tell me");
         }
         String[] deadlineParts = parts[1].split(DEADLINE_DELIMITER);
         if (deadlineParts.length < MIN_PARTS_WITH_ARGUMENT || deadlineParts[0].trim().isEmpty()) {
-            throw new DukeException("Uhhh... the deadline description can't be empty Yeah");
+            throw new PatrickException("Uhhh... the deadline description can't be empty Yeah");
         }
         String description = deadlineParts[0];
         String byString = deadlineParts[1].trim();
@@ -285,7 +285,7 @@ public class Parser {
             ui.showTaskAdded(task, tasks.size());
             storage.save(tasks.getTasks());
         } catch (DateTimeParseException e) {
-            throw new DukeException("Uhhh... I need the date in yyyy-MM-dd format (like 2019-10-15)");
+            throw new PatrickException("Uhhh... I need the date in yyyy-MM-dd format (like 2019-10-15)");
         }
     }
 
@@ -296,18 +296,18 @@ public class Parser {
      * @param tasks The task list.
      * @param ui The UI handler.
      * @param storage The storage handler.
-     * @throws DukeException If description or times are missing or invalid.
+     * @throws PatrickException If description or times are missing or invalid.
      */
-    private static void handleEvent(String[] parts, TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    private static void handleEvent(String[] parts, TaskList tasks, Ui ui, Storage storage) throws PatrickException {
         if (parts.length < MIN_PARTS_WITH_ARGUMENT || parts[1].trim().isEmpty()) {
-            throw new DukeException("Uhhh... I need a description for the event Yeah");
+            throw new PatrickException("Uhhh... I need a description for the event Yeah");
         }
         if (!parts[1].contains("/from") || !parts[1].contains("/to")) {
-            throw new DukeException("Huh? When is the event? Use '/from' and '/to'");
+            throw new PatrickException("Huh? When is the event? Use '/from' and '/to'");
         }
         String[] eventParts = parts[1].split(EVENT_DELIMITER_REGEX);
         if (eventParts.length < MIN_EVENT_PARTS || eventParts[0].trim().isEmpty()) {
-            throw new DukeException("Uhhh... the event description can't be empty Yeah");
+            throw new PatrickException("Uhhh... the event description can't be empty Yeah");
         }
         String description = eventParts[0];
         String fromString = eventParts[1].trim();
@@ -322,7 +322,7 @@ public class Parser {
             ui.showTaskAddedWithUhh(task, tasks.size());
             storage.save(tasks.getTasks());
         } catch (DateTimeParseException e) {
-            throw new DukeException("Uhhh... I need dates in yyyy-MM-dd HHmm format (like 2019-10-15 1800)");
+            throw new PatrickException("Uhhh... I need dates in yyyy-MM-dd HHmm format (like 2019-10-15 1800)");
         }
     }
 
@@ -332,11 +332,11 @@ public class Parser {
      * @param parts The split command parts, where the second element contains the search keyword
      * @param tasks The task list to search within
      * @param ui The UI handler used to display matching tasks
-     * @throws DukeException If the search keyword is missing or empty
+     * @throws PatrickException If the search keyword is missing or empty
      */
-    private static void handleFind(String[] parts, TaskList tasks, Ui ui) throws DukeException {
+    private static void handleFind(String[] parts, TaskList tasks, Ui ui) throws PatrickException {
         if (parts.length < MIN_PARTS_WITH_ARGUMENT || parts[1].trim().isEmpty()) {
-            throw new DukeException("Uhhh... what should I search for?");
+            throw new PatrickException("Uhhh... what should I search for?");
         }
         String keyword = parts[1].trim();
         java.util.ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
@@ -349,7 +349,7 @@ public class Parser {
      * Handles the mark command for GUI and returns response string.
      */
     private static String handleMarkForGui(String[] parts, TaskList tasks, Ui ui, Storage storage)
-            throws DukeException {
+            throws PatrickException {
         validateCommandParts(parts, MIN_PARTS_WITH_ARGUMENT, "Uhhh... which task do I mark?");
         int taskNum = parseTaskNumber(parts);
         tasks.markTask(taskNum);
@@ -361,7 +361,7 @@ public class Parser {
      * Handles the unmark command for GUI and returns response string.
      */
     private static String handleUnmarkForGui(String[] parts, TaskList tasks, Ui ui, Storage storage)
-            throws DukeException {
+            throws PatrickException {
         validateCommandParts(parts, MIN_PARTS_WITH_ARGUMENT, "Uhhh... which task do I unmark?");
         int taskNum = parseTaskNumber(parts);
         tasks.unmarkTask(taskNum);
@@ -373,7 +373,7 @@ public class Parser {
      * Handles the delete command for GUI and returns response string.
      */
     private static String handleDeleteForGui(String[] parts, TaskList tasks, Ui ui, Storage storage)
-            throws DukeException {
+            throws PatrickException {
         validateCommandParts(parts, MIN_PARTS_WITH_ARGUMENT, "Uhhh... which task do you want me to delete?");
         int taskNum = parseTaskNumber(parts);
         Task deletedTask = tasks.deleteTask(taskNum);
@@ -385,9 +385,9 @@ public class Parser {
      * Handles the todo command for GUI and returns response string.
      */
     private static String handleTodoForGui(String[] parts, TaskList tasks, Ui ui, Storage storage)
-            throws DukeException {
+            throws PatrickException {
         if (parts.length < MIN_PARTS_WITH_ARGUMENT || parts[1].trim().isEmpty()) {
-            throw new DukeException("Uhhh... What is the name of the ToDo task again?");
+            throw new PatrickException("Uhhh... What is the name of the ToDo task again?");
         }
         String description = parts[1];
         Task task = new ToDo(description);
@@ -400,16 +400,16 @@ public class Parser {
      * Handles the deadline command for GUI and returns response string.
      */
     private static String handleDeadlineForGui(String[] parts, TaskList tasks, Ui ui, Storage storage)
-            throws DukeException {
+            throws PatrickException {
         if (parts.length < MIN_PARTS_WITH_ARGUMENT || parts[1].trim().isEmpty()) {
-            throw new DukeException("Uhhh... I need a description for the deadline...");
+            throw new PatrickException("Uhhh... I need a description for the deadline...");
         }
         if (!parts[1].contains("/by")) {
-            throw new DukeException("Huh? When is the deadline? Use '/by' to tell me");
+            throw new PatrickException("Huh? When is the deadline? Use '/by' to tell me");
         }
         String[] deadlineParts = parts[1].split(DEADLINE_DELIMITER);
         if (deadlineParts.length < MIN_PARTS_WITH_ARGUMENT || deadlineParts[0].trim().isEmpty()) {
-            throw new DukeException("Uhhh... the deadline description can't be empty Yeah");
+            throw new PatrickException("Uhhh... the deadline description can't be empty Yeah");
         }
         String description = deadlineParts[0];
         String byString = deadlineParts[1].trim();
@@ -421,7 +421,7 @@ public class Parser {
             storage.save(tasks.getTasks());
             return ui.formatTaskAdded(task, tasks.size());
         } catch (DateTimeParseException e) {
-            throw new DukeException("Uhhh... I need the date in yyyy-MM-dd format (like 2019-10-15)");
+            throw new PatrickException("Uhhh... I need the date in yyyy-MM-dd format (like 2019-10-15)");
         }
     }
 
@@ -429,16 +429,16 @@ public class Parser {
      * Handles the event command for GUI and returns response string.
      */
     private static String handleEventForGui(String[] parts, TaskList tasks, Ui ui, Storage storage)
-            throws DukeException {
+            throws PatrickException {
         if (parts.length < MIN_PARTS_WITH_ARGUMENT || parts[1].trim().isEmpty()) {
-            throw new DukeException("Uhhh... I need a description for the event Yeah");
+            throw new PatrickException("Uhhh... I need a description for the event Yeah");
         }
         if (!parts[1].contains("/from") || !parts[1].contains("/to")) {
-            throw new DukeException("Huh? When is the event? Use '/from' and '/to'");
+            throw new PatrickException("Huh? When is the event? Use '/from' and '/to'");
         }
         String[] eventParts = parts[1].split(EVENT_DELIMITER_REGEX);
         if (eventParts.length < MIN_EVENT_PARTS || eventParts[0].trim().isEmpty()) {
-            throw new DukeException("Uhhh... the event description can't be empty Yeah");
+            throw new PatrickException("Uhhh... the event description can't be empty Yeah");
         }
         String description = eventParts[0];
         String fromString = eventParts[1].trim();
@@ -453,16 +453,16 @@ public class Parser {
             storage.save(tasks.getTasks());
             return ui.formatTaskAdded(task, tasks.size());
         } catch (DateTimeParseException e) {
-            throw new DukeException("Uhhh... I need dates in yyyy-MM-dd HHmm format (like 2019-10-15 1800)");
+            throw new PatrickException("Uhhh... I need dates in yyyy-MM-dd HHmm format (like 2019-10-15 1800)");
         }
     }
 
     /**
      * Handles the find command for GUI and returns response string.
      */
-    private static String handleFindForGui(String[] parts, TaskList tasks, Ui ui) throws DukeException {
+    private static String handleFindForGui(String[] parts, TaskList tasks, Ui ui) throws PatrickException {
         if (parts.length < MIN_PARTS_WITH_ARGUMENT || parts[1].trim().isEmpty()) {
-            throw new DukeException("Uhhh... what should I search for?");
+            throw new PatrickException("Uhhh... what should I search for?");
         }
         String keyword = parts[1].trim();
         java.util.ArrayList<Task> matchingTasks = tasks.findTasks(keyword);

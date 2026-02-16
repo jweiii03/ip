@@ -33,9 +33,9 @@ public class Storage {
     /**
      * Loads tasks from the file.
      * @return ArrayList of tasks loaded from file
-     * @throws DukeException if there's an error loading the file
+     * @throws PatrickException if there's an error loading the file
      */
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> load() throws PatrickException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
@@ -61,7 +61,7 @@ public class Storage {
             }
             fileScanner.close();
         } catch (FileNotFoundException e) {
-            throw new DukeException("Uhhh... I couldn't find the file to load tasks.");
+            throw new PatrickException("Uhhh... I couldn't find the file to load tasks.");
         }
 
         assert tasks != null : "Loaded tasks list should not be null";
@@ -71,9 +71,9 @@ public class Storage {
     /**
      * Saves tasks to the file.
      * @param tasks The list of tasks to save
-     * @throws DukeException if there's an error saving the file
+     * @throws PatrickException if there's an error saving the file
      */
-    public void save(ArrayList<Task> tasks) throws DukeException {
+    public void save(ArrayList<Task> tasks) throws PatrickException {
         try {
             // Create directory if it doesn't exist
             Path path = Paths.get(filePath);
@@ -85,7 +85,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new DukeException("Uhhh... I couldn't save the tasks. Sorry!");
+            throw new PatrickException("Uhhh... I couldn't save the tasks. Sorry!");
         }
     }
 
@@ -113,7 +113,7 @@ public class Storage {
                 LocalDate by = LocalDate.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE);
                 task = new Deadline(description, by);
             } else if (type.equals("E") && parts.length >= 5) {
-                LocalDateTime from = LocalDateTime.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                LocalDateTime from = LocalDateTqime.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                 LocalDateTime to = LocalDateTime.parse(parts[4], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                 task = new Event(description, from, to);
             }

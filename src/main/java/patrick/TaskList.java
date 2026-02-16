@@ -30,11 +30,11 @@ public class TaskList {
     /**
      * Validates that a task index is within valid bounds.
      * @param index The index to validate (0-based)
-     * @throws DukeException if the index is invalid
+     * @throws PatrickException if the index is invalid
      */
-    private void validateTaskIndex(int index) throws DukeException {
+    private void validateTaskIndex(int index) throws PatrickException {
         if (index < 0 || index >= tasks.size()) {
-            throw new DukeException("Huh? That task doesn't exist...");
+            throw new PatrickException("Huh? That task doesn't exist...");
         }
     }
 
@@ -42,9 +42,9 @@ public class TaskList {
      * Deletes a task from the list
      * @param index The index of the task to delete (0-based)
      * @return The deleted task
-     * @throws DukeException if the index is invalid
+     * @throws PatrickException if the index is invalid
      */
-    public Task deleteTask(int index) throws DukeException {
+    public Task deleteTask(int index) throws PatrickException {
         validateTaskIndex(index);
 
         Task deletedTask = tasks.remove(index);
@@ -56,9 +56,9 @@ public class TaskList {
      * Gets a task from the list
      * @param index The index of the task (0-based)
      * @return The task at the specified index
-     * @throws DukeException if the index is invalid
+     * @throws PatrickException if the index is invalid
      */
-    public Task getTask(int index) throws DukeException {
+    public Task getTask(int index) throws PatrickException {
         validateTaskIndex(index);
         Task task = tasks.get(index);
         assert task != null : "Retrieved task should not be null for valid index";
@@ -68,9 +68,9 @@ public class TaskList {
     /**
      * Marks a task as done.
      * @param index The index of the task to mark (0-based)
-     * @throws DukeException if the index is invalid
+     * @throws PatrickException if the index is invalid
      */
-    public void markTask(int index) throws DukeException {
+    public void markTask(int index) throws PatrickException {
         validateTaskIndex(index);
         tasks.get(index).markAsDone();
     }
@@ -78,9 +78,9 @@ public class TaskList {
     /**
      * Unmarks a task (marks as not done)
      * @param index The index of the task to unmark (0-based)
-     * @throws DukeException if the index is invalid
+     * @throws PatrickException if the index is invalid
      */
-    public void unmarkTask(int index) throws DukeException {
+    public void unmarkTask(int index) throws PatrickException {
         validateTaskIndex(index);
         tasks.get(index).markAsNotDone();
     }
