@@ -28,15 +28,24 @@ public class TaskList {
     }
 
     /**
+     * Validates that a task index is within valid bounds.
+     * @param index The index to validate (0-based)
+     * @throws DukeException if the index is invalid
+     */
+    private void validateTaskIndex(int index) throws DukeException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new DukeException("Huh? That task doesn't exist...");
+        }
+    }
+
+    /**
      * Deletes a task from the list
      * @param index The index of the task to delete (0-based)
      * @return The deleted task
      * @throws DukeException if the index is invalid
      */
     public Task deleteTask(int index) throws DukeException {
-        if (index < 0 || index >= tasks.size()) {
-            throw new DukeException("Huh? That task doesn't exist...");
-        }
+        validateTaskIndex(index);
 
         Task deletedTask = tasks.remove(index);
         assert deletedTask != null : "Deleted task should not be null";
@@ -50,9 +59,7 @@ public class TaskList {
      * @throws DukeException if the index is invalid
      */
     public Task getTask(int index) throws DukeException {
-        if (index < 0 || index >= tasks.size()) {
-            throw new DukeException("Huh? That task doesn't exist...");
-        }
+        validateTaskIndex(index);
         Task task = tasks.get(index);
         assert task != null : "Retrieved task should not be null for valid index";
         return task;
@@ -64,10 +71,7 @@ public class TaskList {
      * @throws DukeException if the index is invalid
      */
     public void markTask(int index) throws DukeException {
-        if (index < 0 || index >= tasks.size()) {
-            throw new DukeException("Huh? That task doesn't exist...");
-        }
-
+        validateTaskIndex(index);
         tasks.get(index).markAsDone();
     }
 
@@ -77,10 +81,7 @@ public class TaskList {
      * @throws DukeException if the index is invalid
      */
     public void unmarkTask(int index) throws DukeException {
-        if (index < 0 || index >= tasks.size()) {
-            throw new DukeException("Huh? That task doesn't exist...");
-        }
-
+        validateTaskIndex(index);
         tasks.get(index).markAsNotDone();
     }
 
