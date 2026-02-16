@@ -113,7 +113,7 @@ public class Storage {
                 LocalDate by = LocalDate.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE);
                 task = new Deadline(description, by);
             } else if (type.equals("E") && parts.length >= 5) {
-                LocalDateTime from = LocalDateTqime.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                LocalDateTime from = LocalDateTime.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                 LocalDateTime to = LocalDateTime.parse(parts[4], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                 task = new Event(description, from, to);
             }
