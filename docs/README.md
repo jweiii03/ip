@@ -105,7 +105,7 @@ Alright, yeah. I've marked this task as done:
 ```
 
 #### Unmark Task
-Mark a task as not done.
+Mark a task as not done
 
 **Format:** `unmark TASK_NUMBER`
 
