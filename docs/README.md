@@ -6,7 +6,7 @@ Patrick Star is a friendly task management chatbot that helps you keep track of 
 
 ## Quick Start
 
-1. Download the latest `PatrickStar.jar` from the [releases page](../../releases)
+1. Download the latest `PatrickStar.jar` in /build/libs
 2. Double-click the jar file to launch
 3. Start chatting with Patrick!
 
